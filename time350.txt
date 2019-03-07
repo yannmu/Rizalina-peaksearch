@@ -1,0 +1,100 @@
+****************************************************
+The program to estimate the gamma contamination rate
+Please provide all the required input
+****************************************************
+analysing line: superwimp_350
+energy: 350
+dataset: enrBEGe
+binning: 1
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+outdir: /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/350
+BAT precisionlow
+woi 12
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+pushing spectraenrBEGe
+the closest line 351.9
+woi12
+----------------------------------------------------
+----------------------------------------------------
+test
+----------------------------------------------------
+----------------------------------------------------
+the line is registered
+ +------------------------------------------------------+
+ |                                                      |
+ | BAT version 0.9.4.1                                  |
+ | Copyright (C) 2007-2014, the BAT core developer team |
+ | All rights reserved.                                 |
+ |                                                      |
+ | For the licensing terms see doc/COPYING              |
+ | For documentation see http://mpp.mpg.de/bat          |
+ |                                                      |
+ +------------------------------------------------------+
+
+Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/350/enrBEGe-superwimp_350.txt
+reset fit
+creating fit function with parameters [ mean0 fwhm0 intnsty0 mean1 fwhm1 intnsty1 bkgrnd slpe ]
+linear fit
+making a linear fit; printing out the params in /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/350/enrBEGe-superwimp_350
+ FCN=9.46882 FROM MIGRAD    STATUS=CONVERGED      44 CALLS          45 TOTAL
+                     EDM=7.55506e-17    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.33873e+03   5.68736e+02   8.21880e-03  -1.62100e-12
+   2  p1          -5.93846e+00   1.65469e+00   2.39119e-05  -7.98591e-09
+ FCN=7.60353 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=2.43281e-15    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.16756e+03   1.06901e+03   8.57540e-03   5.04918e-11
+   2  p1          -2.55648e+00   2.98152e+00   2.39171e-05  -5.29184e-09
+Slope: -4.24747
+free term: 1753.14
+max_bin345
+min_bin230
+perform fit
+marginalisation
+Summary : Marginalize using Metropolis
+Summary : Pre-run Metropolis MCMC...
+Summary :  --> Perform MCMC pre-run with 1 chains, each with maximum 10000 iterations
+Summary :  --> No convergence criterion for a single chain defined.
+Summary :  --> Markov chains ran for 10000 iterations.
+Summary : Run Metropolis MCMC...
+Summary :  --> Perform MCMC run with 1 chains, each with 10000 iterations.
+Summary :  --> Markov chains ran for 10000 iterations.
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 0
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 1
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 3
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 4
+Summary : Finding mode using Minuit
+Summary : ---------------------------------------------------
+Summary : Fit summary for model 'HistogramFitter with fit':
+Summary :    Number of parameters:  Npar  = 8
+Summary :    Number of data points: Ndata = 24
+Summary :    Number of degrees of freedom:
+Summary :       NDoF = Ndata - Npar = 16
+Summary :    Best fit parameters (global):
+Summary :       mean0 = 350
+Summary :       fwhm0 = 2.18
+Summary :       intnsty0 = 82
+Summary :       mean1 = 352
+Summary :       fwhm1 = 2.18
+Summary :       intnsty1 = 277
+Summary :       bkgrnd = 1.45e+03
+Summary :       slpe = -3.36
+Summary :    Goodness-of-fit test:
+Summary :       p-value = 0.335
+Summary : ---------------------------------------------------
+evaluating
+Warning : BCH1D::GetSmallestInterval : The requested content of 68% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!
+Warning : BCH1D::GetSmallestInterval : The requested content of 95% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!
+Warning : BCH1D::GetSmallestInterval : The requested content of 99% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!
+Warning : BCH1D::GetSmallestInterval : The requested content of 68% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!
+Warning : BCH1D::GetSmallestInterval : The requested content of 95% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!
+Warning : BCH1D::GetSmallestInterval : The requested content of 99% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!

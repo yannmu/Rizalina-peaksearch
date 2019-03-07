@@ -1,0 +1,381 @@
+****************************************************
+The program to estimate the gamma contamination rate
+Please provide all the required input
+****************************************************
+analysing line: superwimp_200
+energy: 200
+dataset: enrBEGe
+binning: 1
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+outdir: /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/200
+BAT precisionlow
+woi 12
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+pushing spectraenrBEGe
+woi12
+----------------------------------------------------
+----------------------------------------------------
+test
+----------------------------------------------------
+----------------------------------------------------
+the line is registered
+ +------------------------------------------------------+
+ |                                                      |
+ | BAT version 0.9.4.1                                  |
+ | Copyright (C) 2007-2014, the BAT core developer team |
+ | All rights reserved.                                 |
+ |                                                      |
+ | For the licensing terms see doc/COPYING              |
+ | For documentation see http://mpp.mpg.de/bat          |
+ |                                                      |
+ +------------------------------------------------------+
+
+Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/200/enrBEGe-superwimp_200.txt
+reset fit
+creating fit function with parameters [ mean0 fwhm0 intnsty0 bkgrnd slpe ]
+linear fit
+making a linear fit; printing out the params in /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/200/enrBEGe-superwimp_200
+ FCN=20.102 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=2.67418e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.14554e+04   2.94456e+02   2.26272e-02   3.92527e-13
+   2  p1          -4.48698e+01   1.46504e+00   1.12579e-04   2.36680e-10
+Slope: -44.8698
+free term: 11455.4
+max_bin2995
+min_bin2032
+perform fit
+marginalisation
+Summary : Marginalize using Metropolis
+Summary : Pre-run Metropolis MCMC...
+Summary :  --> Perform MCMC pre-run with 1 chains, each with maximum 10000 iterations
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0262 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8569.17 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9277.31 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9309.59 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9321.7 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.028 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8621.01 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9322.49 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8621.61 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9297.87 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9263.78 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8139 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8619.89 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9313.21 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9283.97 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9307.04 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8363 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9262.06 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9298.62 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8624.11 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10458.9 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10298 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10464 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9239.5 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10466.5 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0373 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9301.33 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8620.95 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9324.72 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10293.2 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9322.21 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8624.01 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9268.26 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9241.17 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9239.57 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0274 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10294.2 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9243.97 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8563.48 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9295.6 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9261.85 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9306.73 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9318.37 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8621.77 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8401 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9287.25 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10296 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10293.8 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9306.1 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.032 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9289.82 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10465.3 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.014 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8396 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8324 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9266.26 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0219 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10461.5 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0267 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9317.24 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9244.43 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10296.6 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10296.4 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10461.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0252 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9258.49 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8568.94 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297.1 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0155 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9269.27 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9283.28 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9243.2 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8563 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8625.29 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8620.46 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9303.08 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10294 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9246.49 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8626.11 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8623.19 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8478 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9273.65 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8186 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0367 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9258.02 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8438 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0054 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10293 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8499 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8618.44 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=3135.72 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10290.9 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297.1 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9261.83 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9249.98 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297.9 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10462.5 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297.9 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9282.2 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10292.2 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0197 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0014 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10296.8 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10465.6 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0178 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9285.21 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9272.75 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9284.68 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8324 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10466.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8447 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=3138.42 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10292.3 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8478 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8623.49 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9246.01 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.027 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8519 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8378 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0009 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9269.97 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8566.75 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10460.3 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9272.56 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0085 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10459.2 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8623.34 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9260.71 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297.4 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8565.84 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9269.53 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10464.8 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.83 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9246.62 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9316.91 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0228 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8564.82 slpe=-56.1206 }
+Summary :  --> No convergence criterion for a single chain defined.
+Summary :  --> Markov chains ran for 10000 iterations.
+Summary : Run Metropolis MCMC...
+Summary :  --> Perform MCMC run with 1 chains, each with 10000 iterations.
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10290.5 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8285 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9252.12 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10459.3 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8164 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10462.5 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9298.28 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0226 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10460 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8565.63 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10463.6 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9281.5 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8437 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8459 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10463.3 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9294.19 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0313 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9272.51 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8567.64 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10462.6 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9247.94 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=3291.46 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9271.36 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=3139.72 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8214 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8622.58 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10459.1 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8507 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9261.2 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9280.22 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10465.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8383 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9241.01 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297.2 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8562.11 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=3291.05 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8567.46 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9253.37 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9247.35 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8393 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10458.5 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8624.8 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8479 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10296.9 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8441 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8361 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9240.98 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0066 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9299.75 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10294.5 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8622.74 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10295.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10464.9 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9315.32 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9323.4 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.848 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9259.98 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8622.97 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8619.21 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9254.36 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8567.56 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10461 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8625.64 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8565.72 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0234 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297.8 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8258 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9301 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10465.6 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297.8 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9306.29 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9311.82 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9269.16 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9316.4 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0341 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9304.13 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8351 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8568.67 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297.4 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8619.68 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=3138.94 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9325.73 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9277.37 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10293.6 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9253.21 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8623.59 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8562.71 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9293.5 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9239.72 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8568.33 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9280.04 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0134 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10293.6 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10461.6 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10463.1 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0191 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10293.8 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9284.89 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9270.6 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9272.6 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.033 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8208 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9322.17 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10460 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9316.14 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10296.1 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10459.4 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9318.44 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9304.05 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9319.9 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-53.9976 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10465.4 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10463.4 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10466.4 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10466.3 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9279.6 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9274.07 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9247.78 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8198 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0115 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9292.97 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10463.4 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9308.2 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8328 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9263.83 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9279.38 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0023 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8358 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8621.37 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9241.81 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10297.4 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9251.04 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8352 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9290.25 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9305 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9245.33 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8218 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8518 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8469 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0122 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8475 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.0298 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9273.01 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10466.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=3134.12 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10292.3 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9239.92 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9295.44 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9256.4 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9290.66 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9316.08 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=8566.63 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8185 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10293.2 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9308.98 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=9301.1 bkgrnd=10038.7 slpe=-56.1206 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8463 }
+Function Parameters = { mean0=200 fwhm0=2.096 intnsty0=7129.13 bkgrnd=10038.7 slpe=-54.8397 }
+Summary :  --> Markov chains ran for 10000 iterations.
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 0
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 1
+Summary : Finding mode using Minuit
+Summary : ---------------------------------------------------
+Summary : Fit summary for model 'HistogramFitter with fit':
+Summary :    Number of parameters:  Npar  = 5
+Summary :    Number of data points: Ndata = 24
+Summary :    Number of degrees of freedom:
+Summary :       NDoF = Ndata - Npar = 19
+Summary :    Best fit parameters (global):
+Summary :       mean0 = 200
+Summary :       fwhm0 = 2.1
+Summary :       intnsty0 = 2.73e-07
+Summary :       bkgrnd = 1.15e+04
+Summary :       slpe = -44.9
+Summary :    Goodness-of-fit test:
+Summary :       p-value = 0.667
+Summary : ---------------------------------------------------
+evaluating
+Warning : BCH1D::GetSmallestInterval : The requested content of 68% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!
+Warning : BCH1D::GetSmallestInterval : The requested content of 95% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!
+Warning : BCH1D::GetSmallestInterval : The requested content of 99% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!

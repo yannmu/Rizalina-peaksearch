@@ -1,0 +1,77 @@
+****************************************************
+The program to estimate the gamma contamination rate
+Please provide all the required input
+****************************************************
+analysing line: superwimp_1550
+energy: 1550
+dataset: enrBEGe
+binning: 1
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+outdir: /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_14/1550
+BAT precisionlow
+woi 14
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+pushing spectraenrBEGe
+woi14
+----------------------------------------------------
+----------------------------------------------------
+test
+----------------------------------------------------
+----------------------------------------------------
+the line is registered
+ +------------------------------------------------------+
+ |                                                      |
+ | BAT version 0.9.4.1                                  |
+ | Copyright (C) 2007-2014, the BAT core developer team |
+ | All rights reserved.                                 |
+ |                                                      |
+ | For the licensing terms see doc/COPYING              |
+ | For documentation see http://mpp.mpg.de/bat          |
+ |                                                      |
+ +------------------------------------------------------+
+
+Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_14/1550/enrBEGe-superwimp_1550.txt
+reset fit
+creating fit function with parameters [ mean0 fwhm0 intnsty0 bkgrnd slpe ]
+linear fit
+making a linear fit; printing out the params in /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_14/1550/enrBEGe-superwimp_1550
+ FCN=29.5728 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=2.43922e-17    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -1.34475e+01   8.42493e+01   1.17848e-03  -1.20586e-10
+   2  p1           1.21188e-02   5.43588e-02   7.60372e-07  -5.84042e-08
+Slope: 0.0121188
+free term: -13.4475
+max_bin11
+min_bin2
+perform fit
+marginalisation
+Summary : Marginalize using Metropolis
+Summary : Pre-run Metropolis MCMC...
+Summary :  --> Perform MCMC pre-run with 1 chains, each with maximum 10000 iterations
+Summary :  --> No convergence criterion for a single chain defined.
+Summary :  --> Markov chains ran for 10000 iterations.
+Summary : Run Metropolis MCMC...
+Summary :  --> Perform MCMC run with 1 chains, each with 10000 iterations.
+Summary :  --> Markov chains ran for 10000 iterations.
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 0
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 1
+Summary : Finding mode using Minuit
+Warning : BCIntegrate::FindModeMinuit : Start point not valid (parameter not inside valid range), set to center.
+Summary : ---------------------------------------------------
+Summary : Fit summary for model 'HistogramFitter with fit':
+Summary :    Number of parameters:  Npar  = 5
+Summary :    Number of data points: Ndata = 28
+Summary :    Number of degrees of freedom:
+Summary :       NDoF = Ndata - Npar = 23
+Summary :    Best fit parameters (global):
+Summary :       mean0 = 1.55e+03
+Summary :       fwhm0 = 2.76
+Summary :       intnsty0 = 9.17e-06
+Summary :       bkgrnd = -8.08
+Summary :       slpe = 0.00934
+Summary :    Goodness-of-fit test:
+Summary :       p-value = 0.645
+Summary : ---------------------------------------------------
+evaluating

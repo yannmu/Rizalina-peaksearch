@@ -1,0 +1,92 @@
+ +------------------------------------------------------+
+ |                                                      |
+ | BAT version 0.9.4.1                                  |
+ | Copyright (C) 2007-2014, the BAT core developer team |
+ | All rights reserved.                                 |
+ |                                                      |
+ | For the licensing terms see doc/COPYING              |
+ | For documentation see http://mpp.mpg.de/bat          |
+ |                                                      |
+ +------------------------------------------------------+
+Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/gamma_analysis_test1/enrBEGe/binning_0.3//enrBEGe-Kr85_514.txt
+Summary : Marginalize using Metropolis
+Summary : Pre-run Metropolis MCMC...
+Summary :  --> Perform MCMC pre-run with 1 chains, each with maximum 10000 iterations
+Detail  :  --> Iteration 1000
+Detail  :  --> Iteration 2000
+Detail  :  --> Iteration 3000
+Detail  :  --> Iteration 4000
+Detail  :  --> Iteration 5000
+Detail  :  --> Iteration 6000
+Detail  :  --> Iteration 7000
+Detail  :  --> Iteration 8000
+Detail  :  --> Iteration 9000
+Summary :  --> No convergence criterion for a single chain defined.
+Summary :  --> Markov chains ran for 10000 iterations.
+Detail  :  --> Average efficiencies:
+Detail  :  -->      parameter    2 :  0.00%
+Detail  :  -->      parameter    5 :  0.00%
+Detail  :  -->      parameter    8 :  0.00%
+Detail  :  -->      parameter    9 :  0.00%
+Detail  :  -->      parameter   10 :  0.00%
+Detail  :  --> Average scale factors:
+Detail  :  -->      parameter    2 :  100.00%
+Detail  :  -->      parameter    5 :  100.00%
+Detail  :  -->      parameter    8 :  100.00%
+Detail  :  -->      parameter    9 :  100.00%
+Detail  :  -->      parameter   10 :  100.00%
+Summary : Run Metropolis MCMC...
+Summary :  --> Perform MCMC run with 1 chains, each with 10000 iterations.
+Detail  :  --> iteration number 1000 (10.00%)
+Detail  :  --> iteration number 2000 (20.00%)
+Detail  :  --> iteration number 3000 (30.00%)
+Detail  :  --> iteration number 4000 (40.00%)
+Detail  :  --> iteration number 5000 (50.00%)
+Detail  :  --> iteration number 6000 (60.00%)
+Detail  :  --> iteration number 7000 (70.00%)
+Detail  :  --> iteration number 8000 (80.00%)
+Detail  :  --> iteration number 9000 (90.00%)
+Detail  :  --> iteration number 10000 (100.00%)
+Summary :  --> Markov chains ran for 10000 iterations.
+Detail  :  --> Global mode from MCMC:
+Debug   :  --> Posterior value: -167.309
+Detail  :  -->      parameter  0:   514
+Detail  :  -->      parameter  1:   2.267
+Detail  :  -->      parameter  2:   177.4
+Detail  :  -->      parameter  3:   511
+Detail  :  -->      parameter  4:   2.265
+Detail  :  -->      parameter  5:   22.57
+Detail  :  -->      parameter  6:   510.8
+Detail  :  -->      parameter  7:   2.265
+Detail  :  -->      parameter  8:   58.96
+Detail  :  -->      parameter  9:   141.8
+Detail  :  -->      parameter 10:   -0.06467
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 0
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 1
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 3
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 4
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 6
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 7
+Summary : Finding mode using Minuit
+Warning : BCIntegrate::FindModeMinuit : Start point not valid (parameter not inside valid range), set to center.
+Summary : ---------------------------------------------------
+Summary : Fit summary for model 'HistogramFitter with fit':
+Summary :    Number of parameters:  Npar  = 11
+Summary :    Number of data points: Ndata = 40
+Summary :    Number of degrees of freedom:
+Summary :       NDoF = Ndata - Npar = 29
+Summary :    Best fit parameters (global):
+Summary :       mean0 = 514
+Summary :       fwhm0 = 2.27
+Summary :       intnsty0 = 176
+Summary :       mean1 = 511
+Summary :       fwhm1 = 2.27
+Summary :       intnsty1 = 0.000212
+Summary :       mean2 = 511
+Summary :       fwhm2 = 2.27
+Summary :       intnsty2 = 82.3
+Summary :       bkgrnd = 144
+Summary :       slpe = -0.0681
+Summary :    Goodness-of-fit test:
+Summary :       p-value = 0.867
+Summary : ---------------------------------------------------

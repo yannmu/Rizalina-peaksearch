@@ -1,0 +1,81 @@
+****************************************************
+The program to estimate the gamma contamination rate
+Please provide all the required input
+****************************************************
+analysing line: superwimp_5300
+energy: 5300
+dataset: enrBEGe
+binning: 1
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+outdir: /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/5300
+BAT precisionlow
+woi 12
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+pushing spectraenrBEGe
+woi12
+----------------------------------------------------
+----------------------------------------------------
+test
+----------------------------------------------------
+----------------------------------------------------
+the line is registered
+ +------------------------------------------------------+
+ |                                                      |
+ | BAT version 0.9.4.1                                  |
+ | Copyright (C) 2007-2014, the BAT core developer team |
+ | All rights reserved.                                 |
+ |                                                      |
+ | For the licensing terms see doc/COPYING              |
+ | For documentation see http://mpp.mpg.de/bat          |
+ |                                                      |
+ +------------------------------------------------------+
+
+Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/5300/enrBEGe-superwimp_5300.txt
+creating fit function with parameters [ mean0 fwhm0 intnsty0 bkgrnd slpe ]
+linear fit
+making a linear fit; printing out the params in /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/5300/enrBEGe-superwimp_5300
+ FCN=0 FROM MIGRAD    STATUS=FAILED         40 CALLS          41 TOTAL
+                     EDM=4.7709    STRATEGY= 1      ERR MATRIX APPROXIMATE
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           0.00000e+00   3.53553e-03  -0.00000e+00   1.20000e+01
+   2  p1           0.00000e+00   4.85643e-05  -0.00000e+00   6.36000e+04
+                               ERR DEF= 0.5
+Slope: 0
+free term: 0
+max_bin0
+min_bin1e+08
+marginalisation
+Summary : Marginalize using Metropolis
+Summary : Pre-run Metropolis MCMC...
+Summary :  --> Perform MCMC pre-run with 1 chains, each with maximum 10000 iterations
+Summary :  --> No convergence criterion for a single chain defined.
+Summary :  --> Markov chains ran for 10000 iterations.
+Summary : Run Metropolis MCMC...
+Summary :  --> Perform MCMC run with 1 chains, each with 10000 iterations.
+Summary :  --> Markov chains ran for 10000 iterations.
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 0
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 1
+Summary : Finding mode using Minuit
+Warning : BCIntegrate::FindModeMinuit : Start point not valid (parameter not inside valid range), set to center.
+Summary : ---------------------------------------------------
+Summary : Fit summary for model 'HistogramFitter with fit':
+Summary :    Number of parameters:  Npar  = 5
+Summary :    Number of data points: Ndata = 24
+Summary :    Number of degrees of freedom:
+Summary :       NDoF = Ndata - Npar = 19
+Summary :    Best fit parameters (global):
+Summary :       mean0 = 5.3e+03
+Summary :       fwhm0 = 4.06
+Summary :       intnsty0 = 0
+Summary :       bkgrnd = 0
+Summary :       slpe = 0
+Summary :    Goodness-of-fit test:
+Summary :       p-value = 1
+Summary : ---------------------------------------------------
+Warning : BCH1D::GetSmallestInterval : The requested content of 68% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!
+Warning : BCH1D::GetSmallestInterval : The requested content of 95% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!
+Warning : BCH1D::GetSmallestInterval : The requested content of 99% fits within one bin.
+Warning : BCH1D::GetSmallestInterval : MAKE FINER BINNING (OR CHANGE RANGE) !!!

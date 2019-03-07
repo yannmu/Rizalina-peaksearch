@@ -1,0 +1,82 @@
+#----------------------------------------------------------------------------
+# Setup the project
+
+cmake_minimum_required(VERSION 2.8)
+project(runRooInterface)
+
+
+set(CMAKE_CXX_STANDARD 11)
+if(UNIX)
+    SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=gnu++0x")
+endif()
+#----------------------------------------------------------------------------
+#Set the necessary path variables and find the ROOT package
+
+
+set(ROOT_CONFIG_DEBUG ON)
+
+#---Locate the ROOT package and defines a number of variables (e.g. ROOT_INCLUDE_DIRS)
+set(CMAKE_MODULE_PATH $ENV{ROOTSYS}/etc/cmake/)
+list(APPEND CMAKE_PREFIX_PATH $ENV{ROOTSYS} )
+
+#CPPFLAGS=(shell root-config --cflags)
+#LDFLAGS=(shell root-config --libs)
+
+if(DEFINED ROOTSYS AND NOT DEFINED ROOT_DIR)
+    set(ROOT_DIR ${ROOTSYS}/cmake)
+endif()
+
+#find_package(ROOT REQUIRED COMPONENTS TFile TStorage TObject Core Cint RIO Net Hist Graf Graf3d Gpad Tree Rint Postscript Matrix Physics MathCore MathMore Minuit2 RooFitCore RooFit RooStats SPlot Thread Gui)
+#find_package(ROOT)
+
+
+#---Define useful ROOT functions and macros (e.g. ROOT_GENERATE_DICTIONARY)
+#include(${ROOT_USE_FILE})
+#message("ROOT_USE_FILE:" ${ROOT_USE_FILE})
+
+#----------------------------------------------------------------------------
+#Set the necessary path variables for gada and bat
+
+include_directories(/nfs/gerda2/users/rizalinko/GerdaSoftware/install/gerda/linux-centos-7-x86_64/master/include/gerda-ada)
+link_directories(/nfs/gerda2/users/rizalinko/GerdaSoftware/install/gerda/linux-centos-7-x86_64/master/lib/)
+
+#link_directories(/nfs/gerda2/users/mingazheva/local/sw/bat/linux-centos-7-x86_64/0.9.4/lib/)
+#include_directories(/nfs/gerda2/users/mingazheva/local/sw/bat/linux-centos-7-x86_64/0.9.4/include)
+link_directories(/nfs/gerda2/users/mingazheva/local/sw/bat/linux-centos-7-x86_64/BAT-0.9.3/lib/)
+include_directories(/nfs/gerda2/users/rizalinko/GerdaSoftware/install/bat/linux-centos-7-x86_64/BAT-0.9.3/include)
+#----------------------------------------------------------------------------
+
+#/nfs/gerda2/users/mingazheva/local/sw
+link_directories($ENV{ROOTSYS}/lib/)
+#link_directories(${ROOT_LIBRARY_DIR})
+
+#message(${ROOT_LIBRARY_DIR})
+message($ENV{SWMOD_INST_BASE})
+message($ENV{SWMOD_INST_BASE})
+message($ENV{ROOTSYS})
+
+
+
+
+if(ROOT_CONFIG_DEBUG)
+    message(STATUS "ROOT_LIBRARY_DIR: " ${ROOT_LIBRARY_DIR})
+endif(ROOT_CONFIG_DEBUG)
+
+
+if(ROOT_CONFIG_DEBUG)
+    foreach(lib ${ROOT_LIBRARIES})
+        message(STATUS "Using root library: " ${lib})
+    endforeach(lib)
+endif(ROOT_CONFIG_DEBUG)
+
+#message(${ROOT_INCLUDE_DIRS})
+include_directories($ENV{ROOTSYS}/include/)#(${ROOT_INCLUDE_DIRS})
+#set(all_root_libs ${ROOT_LIBRARIES})
+
+
+
+#add_executable(gammacounts GammaCountAnalysis.cxx )
+
+add_executable(runRooInterface runRooInterface.cxx )
+target_link_libraries(runRooInterface libCore.so libRIO.so libNet.so libHist.so libGraf.so libGraf3d.so libGpad.so libTree.so libRint.so libPostscript.so libMatrix.so libPhysics.so libMathCore.so libThread.so libMathMore.so libMinuit2.so libRooFitCore.so libRooFit.so libRooStats.so libSPlot.so libGui.so libgerda-ada-core.so libGELATIOManagement.so libBATmodels.so libBAT.so libGELATIODecoders.so libGELATIOUtilities.so libGELATIOModules.so )
+

@@ -1,0 +1,90 @@
+****************************************************
+The program to estimate the gamma contamination rate
+Please provide all the required input
+****************************************************
+analysing line: superwimp_600
+energy: 600
+dataset: enrBEGe
+binning: 1
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+outdir: /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_14/600
+BAT precisionlow
+woi 14
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+pushing spectraenrBEGe
+the closest line 609.3
+woi was changed
+woi12
+----------------------------------------------------
+----------------------------------------------------
+test
+----------------------------------------------------
+----------------------------------------------------
+the line is registered
+ +------------------------------------------------------+
+ |                                                      |
+ | BAT version 0.9.4.1                                  |
+ | Copyright (C) 2007-2014, the BAT core developer team |
+ | All rights reserved.                                 |
+ |                                                      |
+ | For the licensing terms see doc/COPYING              |
+ | For documentation see http://mpp.mpg.de/bat          |
+ |                                                      |
+ +------------------------------------------------------+
+
+Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_14/600/enrBEGe-superwimp_600.txt
+reset fit
+creating fit function with parameters [ mean0 fwhm0 intnsty0 mean1 fwhm1 intnsty1 bkgrnd slpe ]
+linear fit
+making a linear fit; printing out the params in /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_14/600/enrBEGe-superwimp_600
+ FCN=13.5772 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.14919e-16    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -5.57689e+01   2.86163e+02   4.52650e-03  -2.06028e-11
+   2  p1           2.71195e-01   4.79370e-01   7.58263e-06   1.93270e-08
+ FCN=7.47957e-30 FROM HESSE     STATUS=NOT POSDEF     14 CALLS          43 TOTAL
+                     EDM=9.43352e-28    STRATEGY= 1      ERR MATRIX NOT POS-DEF
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           5.40000e+01   1.64399e+02   1.01487e-03   2.63164e-16
+   2  p1           8.81633e-02   2.68406e-01   3.31387e-07   3.22376e-13
+Slope: 0.179679
+free term: -0.884432
+max_bin126
+min_bin89
+perform fit
+marginalisation
+Summary : Marginalize using Metropolis
+Summary : Pre-run Metropolis MCMC...
+Summary :  --> Perform MCMC pre-run with 1 chains, each with maximum 10000 iterations
+Summary :  --> No convergence criterion for a single chain defined.
+Summary :  --> Markov chains ran for 10000 iterations.
+Summary : Run Metropolis MCMC...
+Summary :  --> Perform MCMC run with 1 chains, each with 10000 iterations.
+Summary :  --> Markov chains ran for 10000 iterations.
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 0
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 1
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 3
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 4
+Summary : Finding mode using Minuit
+Warning : BCIntegrate::FindModeMinuit : Start point not valid (parameter not inside valid range), set to center.
+Summary : ---------------------------------------------------
+Summary : Fit summary for model 'HistogramFitter with fit':
+Summary :    Number of parameters:  Npar  = 8
+Summary :    Number of data points: Ndata = 24
+Summary :    Number of degrees of freedom:
+Summary :       NDoF = Ndata - Npar = 16
+Summary :    Best fit parameters (global):
+Summary :       mean0 = 600
+Summary :       fwhm0 = 2.31
+Summary :       intnsty0 = 4.1e-08
+Summary :       mean1 = 609
+Summary :       fwhm1 = 2.32
+Summary :       intnsty1 = 138
+Summary :       bkgrnd = -0.547
+Summary :       slpe = 0.18
+Summary :    Goodness-of-fit test:
+Summary :       p-value = 0.802
+Summary : ---------------------------------------------------
+evaluating

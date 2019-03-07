@@ -1,0 +1,17 @@
+****************************************************
+The program to estimate the gamma contamination rate
+Please provide all the required input
+****************************************************
+analysing line: superwimp_600_231631
+energy: 600
+keylist: /nfs/gerda5/gerda-data/blind/v04.00/meta/data-sets/phy/run0053-run0092-phy-analysis.txt
+dataset: EnrBEGe
+binning: 1
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+outdir: /nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/sensitivity//EnrBEGe/binning_1/600
+BAT precisionlow
+woi 14
+pseudo data directory /nfs/gerda2/users/rizalinko/gerda-bkg-model/input/data/
+pseudo data iteration 231631
+Running tests on pseudo data 
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root

@@ -1,0 +1,73 @@
+****************************************************
+The program to estimate the gamma contamination rate
+Please provide all the required input
+****************************************************
+analysing line: superwimp_850_0
+energy: 850
+keylist: /nfs/gerda5/gerda-data/blind/v04.00/meta/data-sets/phy/run0053-run0092-phy-analysis.txt
+dataset: enrBEGe
+binning: 1
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+outdir: /nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/sensitivity_lin_fit//enrBEGe/binning_1/850
+BAT precisionlow
+woi 12
+pseudo data directory /nfs/gerda2/users/rizalinko/gerda-bkg-model/gerda-bkg-model/input/data/
+pseudo data iteration 0
+Running tests on pseudo data 
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+the spectra is registered
+the pseudodata is registered
+the closest line 861
+woi12
+----------------------------------------------------
+----------------------------------------------------
+test
+----------------------------------------------------
+----------------------------------------------------
+the line is registered
+ +------------------------------------------------------+
+ |                                                      |
+ | BAT version 0.9.4.1                                  |
+ | Copyright (C) 2007-2014, the BAT core developer team |
+ | All rights reserved.                                 |
+ |                                                      |
+ | For the licensing terms see doc/COPYING              |
+ | For documentation see http://mpp.mpg.de/bat          |
+ |                                                      |
+ +------------------------------------------------------+
+
+Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/sensitivity_lin_fit//enrBEGe/binning_1/850/pseudo_data_0-superwimp_850_0.txt
+creating fit function with parameters [ mean0 fwhm0 intnsty0 mean1 fwhm1 intnsty1 bkgrnd slpe ]
+linear fit
+making a linear fit; printing out the params in /nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/sensitivity_lin_fit//enrBEGe/binning_1/850/pseudo_data_0-superwimp_850_0
+ FCN=4.98205 FROM MIGRAD    STATUS=CONVERGED     115 CALLS         116 TOTAL
+                     EDM=1.1002e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.11644e+02   1.53513e+02   3.47459e-03  -1.40336e-08
+   2  p1          -1.40617e-01   1.81014e-01   4.09706e-06   1.71340e-04
+                               ERR DEF= 0.5
+ FCN=2.03109e-11 FROM MIGRAD    STATUS=CONVERGED     138 CALLS         139 TOTAL
+                     EDM=7.30879e-14    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -7.67242e+03   5.47978e+02   3.65850e-03   9.63560e-09
+   2  p1           8.99991e+00   6.34986e-01   4.29149e-06   7.90183e-06
+                               ERR DEF= 0.5
+Slope: 4.42965
+free term: -3730.39
+max_bin0
+min_bin1e+08
+marginalisation
+Summary : Marginalize using Metropolis
+Summary : Pre-run Metropolis MCMC...
+Summary :  --> Perform MCMC pre-run with 1 chains, each with maximum 10000 iterations
+Summary :  --> No convergence criterion for a single chain defined.
+Summary :  --> Markov chains ran for 10000 iterations.
+Summary : Run Metropolis MCMC...
+Summary :  --> Perform MCMC run with 1 chains, each with 10000 iterations.
+Summary :  --> Markov chains ran for 10000 iterations.
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 0
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 1
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 3
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 4

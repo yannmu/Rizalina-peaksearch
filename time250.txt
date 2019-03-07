@@ -1,0 +1,336 @@
+****************************************************
+The program to estimate the gamma contamination rate
+Please provide all the required input
+****************************************************
+analysing line: superwimp_250
+energy: 250
+dataset: enrBEGe
+binning: 1
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+outdir: /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/250
+BAT precisionlow
+woi 12
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+pushing spectraenrBEGe
+the closest line 239
+woi12
+----------------------------------------------------
+----------------------------------------------------
+test
+----------------------------------------------------
+----------------------------------------------------
+the line is registered
+ +------------------------------------------------------+
+ |                                                      |
+ | BAT version 0.9.4.1                                  |
+ | Copyright (C) 2007-2014, the BAT core developer team |
+ | All rights reserved.                                 |
+ |                                                      |
+ | For the licensing terms see doc/COPYING              |
+ | For documentation see http://mpp.mpg.de/bat          |
+ |                                                      |
+ +------------------------------------------------------+
+
+Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/250/enrBEGe-superwimp_250.txt
+reset fit
+creating fit function with parameters [ mean0 fwhm0 intnsty0 mean1 fwhm1 intnsty1 bkgrnd slpe ]
+linear fit
+making a linear fit; printing out the params in /nfs/gerda2/users/rizalinko/gamma-fitter/linear_analysis//enrBEGe/binning_1/bat_low/woi_12/250/enrBEGe-superwimp_250
+ FCN=5.3064e-12 FROM MIGRAD    STATUS=CONVERGED      42 CALLS          43 TOTAL
+                     EDM=1.0613e-11    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0          -1.37960e+04   1.24143e+04   1.27853e-02   1.12760e-10
+   2  p1           6.39999e+01   5.23836e+01   5.39493e-05  -6.12276e-08
+ FCN=21.5566 FROM MIGRAD    STATUS=CONVERGED      40 CALLS          41 TOTAL
+                     EDM=5.64518e-20    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           5.02842e+03   3.14658e+02   1.66433e-02   1.06731e-12
+   2  p1          -1.58341e+01   1.24580e+00   6.58945e-05   5.39152e-10
+Slope: 24.0829
+free term: -4383.78
+max_bin1225
+min_bin843
+perform fit
+marginalisation
+Summary : Marginalize using Metropolis
+Summary : Pre-run Metropolis MCMC...
+Summary :  --> Perform MCMC pre-run with 1 chains, each with maximum 10000 iterations
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=22.0471 mean1=239 fwhm1=2.11799 intnsty1=1954.85 bkgrnd=-5782.98 slpe=21.2478 }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=28.9367 mean1=239 fwhm1=2.11799 intnsty1=1882.26 bkgrnd=-5746.43 slpe=21.2021 }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=1.84254 mean1=239 fwhm1=2.11799 intnsty1=1851.61 bkgrnd=-5743.86 slpe=21.1515 }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=9.73486 mean1=239 fwhm1=2.11799 intnsty1=1826.19 bkgrnd=-5741.23 slpe=21.2691 }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=39.9296 mean1=239 fwhm1=2.11799 intnsty1=1903.48 bkgrnd=-5566.13 slpe=20.413 }
+Summary :  --> No convergence criterion for a single chain defined.
+Summary :  --> Markov chains ran for 10000 iterations.
+Summary : Run Metropolis MCMC...
+Summary :  --> Perform MCMC run with 1 chains, each with 10000 iterations.
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=22.9946 mean1=239 fwhm1=2.11799 intnsty1=1861.96 bkgrnd=-5437.23 slpe=21.6783 }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=75.7784 mean1=239 fwhm1=2.11799 intnsty1=1769.59 bkgrnd=-5369.89 slpe=19.7172 }
+Summary :  --> Markov chains ran for 10000 iterations.
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 0
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 1
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 3
+Warning : BCEngineMCMC::MCMCGetH1Marginalized: marginal distribution not computed/stored for par. 4
+Summary : Finding mode using Minuit
+Warning : BCIntegrate::FindModeMinuit : Start point not valid (parameter not inside valid range), set to center.
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=-nan mean1=239 fwhm1=2.11799 intnsty1=-nan bkgrnd=-nan slpe=-nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Function Parameters = { mean0=250 fwhm0=2.12416 intnsty0=nan mean1=239 fwhm1=2.11799 intnsty1=nan bkgrnd=nan slpe=nan }
+Summary : ---------------------------------------------------
+Summary : Fit summary for model 'HistogramFitter with fit':
+Summary :    Number of parameters:  Npar  = 8
+Summary :    Number of data points: Ndata = 24
+Summary :    Number of degrees of freedom:
+Summary :       NDoF = Ndata - Npar = 16
+Summary :    Best fit parameters (global):
+Summary :       mean0 = 250
+Summary :       fwhm0 = 2.12
+Summary :       intnsty0 = 0.182
+Summary :       mean1 = 239
+Summary :       fwhm1 = 2.12
+Summary :       intnsty1 = 1.9e+03
+Summary :       bkgrnd = -2.64e+03
+Summary :       slpe = 14.6
+Summary :    Goodness-of-fit test:
+Summary :       p-value = 0
+Summary : ---------------------------------------------------
+evaluating

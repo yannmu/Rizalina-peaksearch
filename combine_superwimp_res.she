@@ -1,0 +1,9 @@
+base_dir="/nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/"
+cd ${base_dir}
+
+o_dir=${base_dir}/sensitivity_improved_fit*
+#bk_dir=${o_dir}_bk
+
+#cp -r ${o_dir} ${bk_dir}
+cat ${o_dir}/enrBEGe/binning_1/*/gamma.log > gamma_bege.log
+cat ${o_dir}/enrCoax/binning_1/*/gamma.log > gamma_coax.log
