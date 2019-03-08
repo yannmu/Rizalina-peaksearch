@@ -1,16 +1,22 @@
 #include "GammaLineAnalysis.h"
 #include "TFile.h"
 
+#include <fstream>
+
+#include <sstream>
+#include <string>
+
 namespace std {
 
-    GammaLineAnalysis::GammaLineAnalysis( string log_ds,
+    GammaLineAnalysis::GammaLineAnalysis( string log_ds, string gfile,
                                           BCEngineMCMC::Precision precision ) :
-            fLogDir(log_ds), fPrecision(precision), fDS(log_ds)
+            fLogDir(log_ds), fPrecision(precision), fDS(log_ds), fgfile(gfile)
     {
 
         fSpectra = new map<TString,AnalysisSpectrum>;
         fLines   = new map<TString,GammaRegion>;
         fFitter  = new GammaLineFit();
+        ReadLines();
     }
 
     GammaLineAnalysis::~GammaLineAnalysis()
@@ -20,7 +26,7 @@ namespace std {
         delete fFitter;
     }
 
-    void GammaLineAnalysis::PerformFits(TF1* resCurve, bool ifresolprior )
+    void GammaLineAnalysis::PerformFits(TF1* resCurve, bool ifresolprior, bool ifgammas )
     {
         fFitter->SetPrecision(fPrecision);
         if(!ifresolprior)
@@ -63,7 +69,7 @@ namespace std {
 					else
 						h = (TH1D*)f->Get("hRaw5");
 					fFitter->SetHist(h);
-					
+					std::cout << "nbins in hist " << h->GetNbinsX() << std::endl;
 				//delete f;
 				//delete h;
 				}
@@ -80,54 +86,107 @@ namespace std {
 			         fFitter->SetLinBkg(true);
 				}*/
                  
-                fFitter->Fit(Form("%s/%s-%s",fLogDir.Data(), spectr.first.Data(),line.first.Data()));
-                std::cout << "fFitter->Fit();" << std::endl;                         
-				fFitter->WriteToCommonLog(Form("%s-%s",spectr.first.Data(),line.first.Data()),
-                                          Form("%s/gamma.log",fLogDir.Data()),
-                                          spectr.second.spectrum->GetExposure());
-						//std::cout << "Form("%s-%s",spectr.first.Data(),line.first.Data())" << std::endl;
-                        //            std::cout << "Form(\"%s/gamma.log\",fLogDir.Data())" << std::endl;
-                                          
+                if(fFitter->Fit(Form("%s/%s-%s",fLogDir.Data(), spectr.first.Data(),line.first.Data()), ifgammas)){
+					std::cout << "fFitter->Fit();" << std::endl;
+									  
+									  
+							  
+					fFitter->WriteToCommonLog(Form("%s-%s",
+												   spectr.first.Data(),line.first.Data()),
+											  Form("%s/gamma.log",fLogDir.Data()),
+											  spectr.second.spectrum->GetExposure(), ifgammas);
+				}
+						
             }
        }
     }
 
-    void GammaLineAnalysis::RegisterStandardLines()
+    void GammaLineAnalysis::RegisterStandardLines(double woi)
     {
-        RegisterLine("K42_1525"  ,{1524.7},{1495.,1555.});
-        RegisterLine("K40_1461"  ,{1460.8},{1430.,1490.});
-
-        //Th chain
-        RegisterLine("Ac228_911" ,{ 911.2},{ 890., 935.}); /*25.8%*/
-        RegisterLine("Ac228_969" ,{ 969.0},{ 950., 990.}); /*15.8%*/
-        RegisterLine("Tl208_2614",{2614.5},{2590.,2640.}); /*99.8%*/
-        RegisterLine("Tl208-583" ,{ 583.2},{ 575., 600.}); /*85.0%*/
-        RegisterLine("Tl208_861", { 860.6},{ 840., 880.}); /*12.5%*/
-
-        //U chain
-        RegisterLine("Bi214_609" ,{ 609.3},{ 590., 630.}); /*45.5%*/
-        RegisterLine("Bi214_1764",{1764.5},{1740.,1785.}); /*15.3%*/
-        RegisterLine("Bi214_1120",{1120.3},{1100.,1140.}); /*14.9%*/
-        RegisterLine("Bi214_1238",{1238.1},{1215.,1260.}); /* 5.8%*/
-        RegisterLine("Bi214_2204",{2204.1},{2180.,2225.}); /* 4.9%*/
-        RegisterLine("Bi214_768" ,{ 768.4},{ 745., 790.}); /* 4.9%*/
-        RegisterLine("Bi214_1378",{1377.7},{1355.,1400.}); /* 4.0%*/
-        RegisterLine("Bi214_934" ,{ 934.1},{ 915., 955.}); /* 3.1%*/
-
-        RegisterLine("Co60_1332" ,{1332.5},{1310.,1355.}); /*99.9%*/
-        RegisterLine("Co60_1173" ,{1173.2},{1150.,1195.}); /*100.%*/
-        RegisterLine("Pa234_1001",{1001.0},{ 980.,1025.});
-        RegisterLine("Bi207_1063",{1063.7},{1040.,1085.});
-        RegisterLine("Bi207_570" ,{ 569.7},{ 540., 580.});
-        RegisterLine("Kr85_514",  {514.0,511.0},{ 490., 530.});
-
-        //these guys need linear bkg -> to be implemented
-        RegisterLine("Pb214_352",{ 351.9},{ 330., 370.});
-        RegisterLine("Pb214_295",{ 295.2},{ 275., 315.});
-        RegisterLine("Pb212_239",{ 238.6},{ 220., 255.});
-        //Ag108m 722.91, 614.28 and 433.94
+		
+		for(int i=0; i < fisotopes.size(); i++){
+			std::cout << fisotopes[i] << "\t";
+		
+			for(int j = 0; j<fglines[i].size(); j++){
+				double woi_current = woi;
+				char acname[500];
+				sprintf(acname, "%s_%d",fisotopes[i].c_str(), int(fglines[i][j]) );
+				std::cout << acname << "\t";
+				
+				vector<double> peaks = GetCloseLinesToLine(fglines[i][j], woi_current);
+				//gg->RegisterLine(line, peaks,{energy - woi,energy+woi});
+				std::cout <<  "RegisterLine(" << acname <<",{";
+				for(int p=0; p<peaks.size(); p++)
+					std::cout <<peaks[p]<< " ";
+				std::cout <<"},{ "<<int(fglines[i][j] -woi_current) <<"," << int(fglines[i][j] + woi_current) <<" })" << std::endl; 
+				
+				RegisterLine(acname ,peaks,{ int(fglines[i][j] -woi) ,int(fglines[i][j] + woi)}); 
+				
+			}
+			std::cout << std::endl;
+		}
+		
     }
 
-} // namespace
 
+
+ void GammaLineAnalysis::ReadLines(){
+	
+	std::ifstream infile(fgfile);
+	std::string line;
+	while (std::getline(infile, line)){
+		if(line.size() == 0)continue;
+
+		std::string delimiter = ":";
+		std::string iso = line.substr(0, line.find(delimiter)); // 
+		std::string energies = line.substr(line.find(delimiter)+1); // 
+		fisotopes.push_back(iso); 
+		std::vector<double> gamma_energies;
+		stringstream ss( energies);			
+		while( ss.good() )
+		{
+			string substr;
+			getline( ss, substr, ',' );
+			if(substr.size()){
+				gamma_energies.push_back(std::stod(substr));
+			}			
+		}
+		fglines.push_back(gamma_energies);
+
+		}
+	}
+
+
+
+std::vector<double> GammaLineAnalysis::GetCloseLinesToLine(double energy, double & woi){
+	std::vector<double> peaks_pos;
+	
+	peaks_pos.push_back(energy);    
+	for(int is = 0; is<fisotopes.size(); is++){
+			for (int jen = 0; jen<fglines[is].size(); jen++){
+				if(fglines[is][jen] > energy - woi && fglines[is][jen] < energy + woi && fglines[is][jen]!=energy){
+					std::cout << "the closest line " << fglines[is][jen] << std::endl; 
+					std::vector<double>::iterator it = std::find(peaks_pos.begin(), peaks_pos.end(), fglines[is][jen]);
+					if (it == peaks_pos.end())
+						peaks_pos.push_back(fglines[is][jen]);
+					else 
+						continue;
+				}
+				else if(fglines[is][jen] - energy - woi < 4 && fglines[is][jen] - energy - woi > 0 ) {
+					std::cout << "woi was changed" << std::endl;
+					std::cout << energy << " is close to " << fglines[is][jen] << std::endl;
+					woi-=2;
+				}
+				else if(energy - woi - fglines[is][jen] < 4 && energy - woi - fglines[is][jen] >0) {
+					std::cout << "woi was changed" << std::endl;
+					std::cout << energy << " is close to " << fglines[is][jen] << std::endl;
+					woi-=2;
+				}
+			
+		}
+	}
+	std::cout << "woi" << woi << std::endl;
+	return  peaks_pos;
+}
+} // namespace
 

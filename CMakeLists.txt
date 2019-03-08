@@ -2,7 +2,7 @@
 # Setup the project
 
 cmake_minimum_required(VERSION 2.8)
-project(peaksearcht)
+project(peaksearch)
 
 SET(CMAKE_CXX_FLAGS "-std=c++11 -O3")
 set(CMAKE_CXX_STANDARD 11)
@@ -71,7 +71,7 @@ message(${ROOT_INCLUDE_DIRS})
 include_directories(${ROOT_INCLUDE_DIRS})
 set(all_root_libs ${ROOT_LIBRARIES})
 
-add_executable(peaksearcht GammaCountAnalysis.cxx)
+add_executable(peaksearch GammaCountAnalysis.cxx)
 
-#target_link_libraries(peaksearcht ${all_root_libs} libgerda-ada-core.so libGELATIOManagement.so libBATmodels.so libBAT.so )
-target_link_libraries(peaksearcht ${all_root_libs} libBATmodels.so libBAT.so )
+#target_link_libraries(peaksearch ${all_root_libs} libgerda-ada-core.so libGELATIOManagement.so libBATmodels.so libBAT.so )
+target_link_libraries(peaksearch ${all_root_libs} libBATmodels.so libBAT.so )

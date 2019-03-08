@@ -94,12 +94,12 @@ class GammaLineFit
       void  SetPeakPos(vector<double> peakPos)  { fPeakPos=peakPos; fNPeaks=(int) peakPos.size(); };
       void  AddPeakPos(double peakPos)          { fPeakPos.push_back(peakPos); fNPeaks++;         };
       void  SetRange(pair<double,double> range) { fRange=range; fRangeSet=true;                   };
-      void  Fit(TString name = "fit");
-      void  WriteToCommonLog(TString name, TString logFileName="gamma.log", double exposure=-1);
+      bool  Fit(TString name = "fit", bool ifgammas = false);
+      void  WriteToCommonLog(TString name, TString logFileName="gamma.log", double exposure=-1, bool ifgammas = false);
 
      void SwitchOffPriors(){fResolPrior = false;}
    protected:
-      void  ResetFit(TString );
+      bool  ResetFit(TString, bool ifgammas = false );
       void  EvaluateFit(TString logDir);
 
    private:

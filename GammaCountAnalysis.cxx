@@ -36,7 +36,7 @@ int main( int argc, char** argv ){
     cout << "The program to estimate the gamma contamination rate" << endl;
     cout << "Please provide all the required input" << endl;
     cout << "****************************************************" << endl;
-	
+
     gROOT->SetBatch();
 
     string line="";
@@ -53,11 +53,11 @@ int main( int argc, char** argv ){
     int choice = 0;
     bool ifresolpr = true;
     double woi = 25.;
-
+	string gfile ="";
     bool if_pseudo_data = false;
+    bool if_gammas = false;
     int pseudo_data_iter = 0;
     string pseudo_data_path = "";
-
     while(1){
         int optIndex = 0;
         static struct option long_options[] =
@@ -78,11 +78,13 @@ int main( int argc, char** argv ){
                         {"pseudo_data", no_argument, 0, 't'},
                         {"pseudo_data_iteration", required_argument, 0, 'i'},
                         {"pseudo_data_path", required_argument, 0, 'f'},
+                        {"gammafile", required_argument, 0, 'n'},
+                        {"ifgammaanalysis", no_argument, 0, 'z'},
 
 
                 };
 ///nfs/gerda2/users/rizalinko/gamma-analysis/GammaTierHandler.h
-        choice = getopt_long ( argc, argv, "g:e:k:d:l:b:r:o:p:j:a:i:f:w:t", long_options, &optIndex );
+        choice = getopt_long ( argc, argv, "g:e:k:d:l:b:r:o:p:j:a:i:f:w:n:tz", long_options, &optIndex );
 
         if( choice == -1 )
             break;
@@ -126,6 +128,9 @@ int main( int argc, char** argv ){
         }else if( choice== 't'  ) {
             if_pseudo_data = true;
             cout << "Running tests on pseudo data " << endl;
+        }else if( choice== 'z'  ) {
+            if_gammas = true;
+            cout << "Running gamma analysis " << endl;
         }else if( choice== 'f'  ) {
             pseudo_data_path = check_input_str(optarg);
             cout << "pseudo data directory " << pseudo_data_path << endl;
@@ -139,10 +144,13 @@ int main( int argc, char** argv ){
         }else if( choice== 'f'  ) {
             pseudo_data_path = check_input_str(optarg);
             cout << "pseudo data directory " << pseudo_data_path << endl;
+        }else if( choice== 'n'  ) {
+            gfile = check_input_str(optarg);
+            cout << "gammas are listed in " << gfile << endl;
         }
 
     }
-	 
+
     const char * sc =  rescurve.c_str();
     cout << "res curve for priors: " << sc << endl;
 
@@ -156,8 +164,7 @@ int main( int argc, char** argv ){
     else
         resCurve = (TF1*) resFile->Get("Nat");
 	vector < GammaAutoSpectrum * > specs;
-	GammaLineAnalysis *gg = new GammaLineAnalysis(out_dir);
-
+	GammaLineAnalysis *gg = new GammaLineAnalysis(out_dir, gfile);
     if(!if_pseudo_data) {
 		
         // create spectra (e.g. EnrCoax + EnrCoaxNoPSD for w/ and w/o LAr veto)
@@ -217,21 +224,21 @@ int main( int argc, char** argv ){
 
 	//
 		}
-	vector<double> peaks = get_close_lines(energy, woi);
 
-    cout << "----------------------------------------------------" << endl;
-	cout << "----------------------------------------------------" << endl;
-	cout <<"test"<< endl;
-	cout << "----------------------------------------------------" << endl;
-	cout << "----------------------------------------------------" << endl;
-		
-	gg->RegisterLine(line, peaks,{energy - woi,energy+woi});
-	std::cout << "the line is registered" << std::endl;
+	
+	if(if_gammas)
+		gg->RegisterStandardLines(woi);
+	
+	else{
+		vector<double> peaks = gg->GetCloseLinesToLine(energy, woi);
+		gg->RegisterLine(line, peaks,{energy - woi,energy+woi});
+		std::cout << line << "  the line is registered" << std::endl;
+	}
 
 
 
     // start fits (will fit registered lines to registerd spectra)
-    gg->PerformFits(resCurve, ifresolpr);
+    gg->PerformFits(resCurve, ifresolpr, if_gammas);
     // you will find some output in the log directory
     // *spectrName*lineName*.pdf  -> posterior distributions
     // *spectrName*lineName*.png  -> pic of the fit
@@ -250,32 +257,3 @@ string check_input_str(string inp){
     return inp;
 }
 
-
-vector<double> get_close_lines(double energy, double &woi){
-    vector<double> peaks_pos;
-	double all_g_lines[21] = {511, 609.3,934.0,
-                              1120.3,1238.0,1378.0,
-                              1764.5,2204.2, 295.2,
-                              351.9,239.0,1001.0,
-                              1173.2,1332.3, 911.2,
-                              968.7,583.2,861.0,2614.5,
-                              1524.7,1460.8};
-	peaks_pos.push_back(energy);    
-	for(int iline = 0; iline<21; iline++){
-			if(all_g_lines[iline] > energy - woi && all_g_lines[iline] < energy + woi && all_g_lines[iline]!=energy){
-				std::cout << "the closest line " << all_g_lines[iline] << std::endl; 
-				peaks_pos.push_back(all_g_lines[iline]);
-			}
-			else if(all_g_lines[iline] - energy - woi < 4 && all_g_lines[iline] - energy - woi > 0 ) {
-				std::cout << "woi was changed" << std::endl;
-				woi-=2;
-			}
-			else if(energy - woi - all_g_lines[iline] < 4 && energy - woi - all_g_lines[iline] >0) {
-				std::cout << "woi was changed" << std::endl;
-				woi-=2;
-			}
-			
-	}
-	std::cout << "woi" << woi << std::endl;
-		return  peaks_pos;
-}
