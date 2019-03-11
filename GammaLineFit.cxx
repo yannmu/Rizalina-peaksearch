@@ -145,26 +145,24 @@ namespace std {
 			
 			TF1 *fl1;// = new TF1();
 			TF1 *fl2;// = new TF1();
-			if(min_peak-4 > fRange.first)
-				fl1 = new TF1("linfit1", "[0]+[1]*x", fRange.first,min_peak-4);
-			if(max_peak+4 <fRange.second )
-				fl2 = new TF1("linfit2", "[0]+[1]*x", max_peak+4, fRange.second );
 			
 			double cndf1 = 0.;
 			double cndf2 = 0.;
 			
-			if( fPeakPos.at(1)- fRange.first > 4){
+			if( min_peak- fRange.first > 8){
+				fl1 = new TF1("linfit1", "[0]+[1]*x", fRange.first,min_peak-5);
 				std::cout << "*** ******************* 1st fit **********************" <<  std::endl;
-				fHist->Fit(fl1, "LRF");
+				fHist->Fit(fl1, "LR");
 				cndf1 = double(fl1->GetChisquare()/fl1->GetNDF());
 				std::cout << "Goodnes 1st lin" <<fl1->GetNDF()<<"\t" << cndf1 << std::endl;
 				f1 = (fl1->GetParameter(0));
 	            s1 = (fl1->GetParameter(1));
 			}else std::cout << "1st peak is out of range" << std::endl;
 			
-			if (fRange.second - fPeakPos.at(1) > 4){
+			if (fRange.second - max_peak > 8){
+				fl2 = new TF1("linfit2", "[0]+[1]*x", max_peak+5, fRange.second );
 				std::cout << "*********************** 2nd fit **********************" <<  std::endl;
-                fHist->Fit(fl2, "LRF+");
+                fHist->Fit(fl2, "LRF");
                 cndf2 = double(fl2->GetChisquare()/fl2->GetNDF());
 				std::cout << "Goodnes 2nd lin"  << fl2->GetNDF()<<"\t" <<cndf2 << std::endl;
 				 f2 = (fl2->GetParameter(0));
@@ -172,7 +170,7 @@ namespace std {
 
 			}else std::cout << "2nd peak is out of range" << std::endl;
 			 
-			 
+
 			 if (cndf1 > 1.1 || cndf1 < 0.5){
 				 
 				 if (cndf2 > 1.1 || cndf2 < 0.5){
@@ -203,8 +201,8 @@ namespace std {
 				f = (f1+f2)/2.;		
 				s = (s1+s2)/2.;			
 			}
-			delete fl1;
-			delete fl2;
+			//delete fl1;
+			//delete fl2;
 			}
 		slope = s;
 		free_param = f;
@@ -215,12 +213,10 @@ namespace std {
 			fFitFunction->SetParLimits(fPeakPos.size()*3+1, 0.6*slope, 1.4*slope);		
 		}
 		
-		if (free_param < 0)	{			
-			fFitFunction->SetParLimits(fPeakPos.size()*3, 1.4*free_param, 0.6*free_param);
-		}
-		else {
-			fFitFunction->SetParLimits(fPeakPos.size()*3, 0.6*free_param, 1.4*free_param);
-		}
+		if (free_param < 0)
+			free_param = maxBkg;	
+		fFitFunction->SetParLimits(fPeakPos.size()*3, 0.6*free_param, 1.4*free_param);
+	
 		
         std::cout << "Slope: " << slope << std::endl;
 		std::cout << "free term: " << free_param << std::endl;
@@ -263,13 +259,29 @@ namespace std {
 			}
 		}*/
         
+        
+		
 		std::cout << "paramters fixed to" << std::endl;
 		for(int i=0; i<(int) fPeakPos.size(); i++) {			
-			std::cout << "mean" << i << "\t" << fPeakPos.at(i) << std::endl;
-			fHistFitter->GetParameter(Form("mean%d",i))->Fix(fPeakPos.at(i));
+
+			if(ifgammas){
+                std::cout << "mean" << i << "\t" << fPeakPos.at(i) << std::endl;
+				//fFitFunction->SetParLimits(3*i+0, fPeakPos.at(i)-kPeakPosRange,	fPeakPos.at(i)+kPeakPosRange);
+                fHistFitter->GetParameter(Form("mean%d",i))->SetLimits(fPeakPos.at(i)-kPeakPosRange,
+                                                                       fPeakPos.at(i)+kPeakPosRange);
+                //fPeakPriors.push_back(new TF1("peak","gaus(0)",fPeakPos.at(i)-3*kPeakPosRange,fPeakPos.at(i)+3*kPeakPosRange));
+                //fPeakPriors.back()->SetParameters(1,fPeakPos.at(i),fPeakPriorWidth);
+                //fHistFitter->SetPrior(Form("mean%d",i),fPeakPriors.back());
+                //fHistFitter->SetPrior(Form("mean%d",i),fPeakPriors.back());
+                std::cout <<  maxPeakCounts.at(i) << std::endl;
+                fFitFunction->SetParLimits(3*i+2, 0.0, maxPeakCounts.at(i));
+			}else
+				fHistFitter->GetParameter(Form("mean%d",i))->Fix(fPeakPos.at(i));
+				
 			if(fResolPrior){
 	
-				fHistFitter->GetParameter(Form("fwhm%d",i))->Fix(fRes->Eval(fPeakPos.at(i)));
+				fHistFitter->GetParameter(Form("fwhm%d",i))->SetLimits(fRes->Eval(fPeakPos.at(i)) - 1,
+                                                                       fRes->Eval(fPeakPos.at(i)) +1 );
 			}
 			std::cout << "fwhm" << i << "\t" << fRes->Eval(fPeakPos.at(i)) << std::endl;
 		}
@@ -333,172 +345,85 @@ namespace std {
 		return false;
     }
     
-   /*
-	void GammaLineFit::SaveEntriesMar(){		
-       TFile *f = new TFile("fit_canv", "recreate");
-        fCanvas2->Write();
-        f->Close();
+  
+void GammaLineFit::SaveFit(TString name){		
 
-
-        //! pdf output with marginalized distributions
-        //   fHistFitter->PrintAllMarginalized(Form("%s.root", name.Data()));
-        //fHistFitter->PrintAllMarginalized(Form("%s.root", "test"));
-
-        // fHistFitter->PrintAllMarginalized(Form("%s.pdf",name.Data()));
-        //! root file output with fit result
-	TFile* outFile = new TFile(Form("%s.root",name.Data()),"RECREATE");
-        outFile->cd();
-        fHistFitter->GetHistogram()->Write("histo");
-        fHistFitter->GetFitFunctionGraph(fHistFitter->GetBestFitParameters())->Write("fitf");
-        fHistFitter->GetErrorBand()->Write("band");
-        //fCanvas2->Write("fit");
-	    outFile->Close();
-	    ofstream outfile;
-        char fname [50];
-        //sprintf("%s.txt", name);
-
-        outfile.open("errorband_hist");
-	    outfile << "entries" << fHistFitter->GetHistogram()->GetEntries() << endl;
-        std::cout << "entried" << std::endl;
-
-        for (int i=0; i<fHistFitter->GetHistogram()->GetEntries(); i++){
-		outfile << fHistFitter->GetHistogram()->GetBinCenter(i) << "\t";
+	ofstream outfile;
+	char fname [500];
+	//sprintf("%s.txt", name);
+	sprintf(fname, "%s_errorband_hist.txt", std::string(name).c_str());
 		
+	outfile.open(fname);
+	
+	outfile << "entries" << fHistFitter->GetHistogram()->GetEntries() << endl;
+	std::cout << "entried" << std::endl;
+
+	for (int i=0; i<fHistFitter->GetHistogram()->GetEntries(); i++){
+		outfile << fHistFitter->GetHistogram()->GetBinCenter(i) << "\t";
 	}	
+	
 	std::cout << "GetBinContent" << std::endl;
 	outfile << endl;
 	for (int i=0; i<fHistFitter->GetHistogram()->GetEntries(); i++){
-        outfile << fHistFitter->GetHistogram()->GetBinContent(i) << "\t";
+		outfile << fHistFitter->GetHistogram()->GetBinContent(i) << "\t";
 	}
-	 std::cout << "fitf"<< std::endl;
-
+	
 	outfile << endl;
 	outfile  << "fitf" << endl;
-	for(int i =0; i<100; i++){
-		double a = 0;
-		double b = 0;
-	fHistFitter->GetFitFunctionGraph(fHistFitter->GetBestFitParameters())->GetPoint(i, a, b);
-		outfile << a << "\t";		
-	}
+	
+	if(fHistFitter->GetFitFunctionGraph(fHistFitter->GetBestFitParameters())){
+		for(int i =0; i<100; i++){
+			double a = 0;
+			double b = 0;
+			fHistFitter->GetFitFunctionGraph(fHistFitter->GetBestFitParameters())->GetPoint(i, a, b);
+			outfile << a << "\t";		
+		}
+
+		outfile << endl;
+		std::cout << "fitf"<< std::endl;
+		for(int i =0; i<100; i++){
+			double a = 0;
+			double b = 0;
+			fHistFitter->GetFitFunctionGraph(fHistFitter->GetBestFitParameters())->GetPoint(i, a, b);
+			outfile << b << "\t";
+		}
+	}else std::cout << "fitf"<< std::endl;
 
 	outfile << endl;
-  std::cout << "fitf"<< std::endl;
-	for(int i =0; i<100; i++){
-                double a = 0;
-                double b = 0;
-fHistFitter->GetFitFunctionGraph(fHistFitter->GetBestFitParameters())->GetPoint(i, a, b);
-                outfile << b << "\t";
-        }
-	 outfile << endl;
-  std::cout << "band"<< std::endl;
-	 outfile  << "band" << endl;
-        for(int i =0; i<200; i++){
-                double a = 0;
-                double b = 0;
-               fHistFitter->GetErrorBand() ->GetPoint(i, a, b);
-		outfile << a << "\t";
-        }
-
-        outfile << endl;
-        for(int i =0; i<200; i++){
-                double a = 0;
-                double b = 0;
-                fHistFitter->GetErrorBand()->GetPoint(i, a, b);
-		outfile << b << "\t";
-        }
-//
-        //outfile.Close();
-        * 
-        * 
-        * 
-        * //    BCH1D* mar = fHistFitter->GetMarginalized(Form("intnsty0"));
-//    BCH1D* mar_bkg = fHistFitter->GetMarginalized(Form("bkgrnd"));
-//    BCH1D* mar_mean = fHistFitter->GetMarginalized(Form("mean0"));
-//    BCH1D* mar_fwhm = fHistFitter->GetMarginalized(Form("fwhm0"));
-
-            /*vector<string> marhists(4);
-            marhists[0] = "intnsty0";
-            marhists[1] = "bkgrnd";
-            marhists[2] = "mean0";
-            marhists[3] = "fwhm0";
-
-            ofstream outfile;
-	char fname [50];
-//sprintf("%s.txt", name);
-            outfile.open(name.Data());
-            outfile << "*******************************************" << endl;
-            for (int npar  = 0; npar<4;npar++){
-                outfile << marhists[npar] << endl;
-                BCH1D* mar = fHistFitter->GetMarginalized(Form(marhists[npar].c_str()));
-                double mode = mar->GetMode();
-                double quantile90 = mar->GetQuantile(0.9);
-                outfile << "mode:" << "\t" << mode << endl;
-                outfile << "mean:" << "\t" << mar->GetMean() << endl;
-                outfile << "STD:" << "\t" << mar->GetSTD() << endl;
-                double low, high;
-                mar->GetSmallestInterval(low,high);
-                outfile << "68% smallest interval:" << "\t" << "["<<
-                        low << ";" << high << "]" << endl;
-
-                mar->GetSmallestInterval(low,high,0.955);
-                outfile << "95% smallest interval:" << "\t" << "["<<
-                        low << ";" << high << "]" << endl;
-
-
-                mar->GetSmallestInterval(low,high, 0.997);
-                outfile << "97% smallest interval:" << "\t" << "["<<
-                        low << ";" << high << "]" << endl;
-
-                outfile <<"bin center array" <<endl;
-                TH1D * h_mar = mar->GetHistogram();
-                int nentries = h_mar->GetEntries();
-                for(int i =0; i<nentries; i++){
-                    outfile << h_mar->GetBinCenter(i) << "\t";
-                }
-                outfile <<endl;
-                for(int i =0; i<nentries; i++){
-                    outfile << h_mar->GetBinContent(i) << "\t";
-                }
-		        outfile<<endl;
-
-            }*/
-	      //  outfile.Close();
-	      
-	      /*
-            BCH1D* mar_mean = fHistFitter->GetMarginalized(Form("mean0"));
-            TH1D * hmean = mar_mean->GetHistogram();
-            std::cout << "mean entries" << hmean->GetEntries();
-
-
-            BCH1D* mar_fwhm = fHistFitter->GetMarginalized(Form("fwhm0"));
-            TH1D * hfwhm = mar_fwhm->GetHistogram();
-
-            TCanvas *c1 = new TCanvas("c1","multipads",900,700);
-            c1->Divide(2,2,0,0);
-
-            c1->cd(1);
-            hintens->Draw();
-
-            c1->cd(2);
-            hbkg->Draw();
-
-            c1->cd(3);
-            hmean->Draw();
-
-            c1->cd(4);
-            hfwhm->Draw();
-            c1->SaveAs("marhists.root");
-            
-     }
-    
-    */
+	if(fHistFitter->GetErrorBand()){ 
+		std::cout << "band"<<fHistFitter->GetErrorBand()->GetN()<< std::endl;
+		//else std::cout << "band doesn't exist" << std::endl;
+		outfile  << "band" << endl;
+		for(int i =0; i<fHistFitter->GetErrorBand()->GetN(); i++){
+			double a = 0;
+			double b = 0;
+			fHistFitter->GetErrorBand() ->GetPoint(i, a, b);
+			outfile << a << "\t";
+			std::cout << i << "\t" << a << "\t";
+			
+		}
+		std::cout << "band"<< std::endl;
+		
+		outfile << endl;
+		for(int i =0; i<fHistFitter->GetErrorBand()->GetN(); i++){
+			double a = 0;
+			double b = 0;
+			fHistFitter->GetErrorBand()->GetPoint(i, a, b);
+			outfile << b << "\t";
+		}
+	}else
+	std::cout << "band doesn't exist"<< std::endl;
+	
+	//outfile.Close();
+  
+	}
+  
     void GammaLineFit::EvaluateFit(TString name)
     {	
 		//fHistFitter->PrintAllMarginalized(Form("%s.pdf",name.Data()));
         
         
-        
-        if(! fFitSet) fCanvas2 = new TCanvas();
+         if(! fFitSet) fCanvas2 = new TCanvas();
         fCanvas2->Clear();
         fCanvas2->cd();
 		
@@ -556,6 +481,9 @@ fHistFitter->GetFitFunctionGraph(fHistFitter->GetBestFitParameters())->GetPoint(
         
         fHistFitter->DrawFit("HIST", false); // draw without(?) a legend
         fCanvas2->Print(Form("%s.png",name.Data()));
+        
+         SaveFit(name);
+      
         //fCanvas2->Print(Form("%s.pdf",name.Data()));
         //fCanvas2->Print(Form("%s.root",name.Data()));
     }
