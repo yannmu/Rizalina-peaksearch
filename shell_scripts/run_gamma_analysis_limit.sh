@@ -35,20 +35,22 @@ line="${isotope}"
 rescrv="/nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root"
 
 bing=${inp_bin}
-batprec="low"
+batprec="med"
 log_file=${inp_log}
 pseudo_iter=${inp_iter}
 
 woi=${inp_woi}
+lmode=${inp_lar}
+sfile="/nfs/gerda2/PhaseIIsummary/PhaseII53-92_blind.root"
 
+bin_dir="/nfs/gerda2/users/rizalinko/gamma-analysis/"
+glines="${bin_dir}/g_lines_lim.txt"
 
 #dsets=("EnrBEGe" "EnrCoax" "Natural")
 dsets=("enrBEGe" "enrCoax")
-for i in ${dsets[@]};
-do
-ds=$i
+ds=${inp_ds}
 echo $ds
-odir="/nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/gamma_analysis_testqsub"
+odir="/nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/gamma_analysis_med"
 if [ ! -d ${odir} ]; then
     mkdir -m g=wr ${odir}
 fi
@@ -72,18 +74,11 @@ if [ ! ${lar_mode} == "" ]; then
   fi
 fi
 
-odir="${odir}/${en}"
-if [ ! -d ${odir} ]; then
-    mkdir -m g=wr ${odir}
-fi
-
 echo ${odir}
 
-line="superwimp_${en}_${pseudo_iter}"
 
-/nfs/gerda2/users/rizalinko/gamma-analysis/peaksearch -g ${line} -e ${en} -k ${kl} -d ${ds} -b ${bing} -r ${rescrv} -o ${odir} -j ${batprec} -w ${woi} -z > log_${log_file}.txt
+${bin_dir}/peaksearch -k ${kl} -d ${ds} -b ${bing} -r ${rescrv} -o ${odir} -j ${batprec} -w ${woi} -s ${sfile} -n ${glines} -l ${lmode} -z > log_${log_file}.txt
 
-done
 
 
 

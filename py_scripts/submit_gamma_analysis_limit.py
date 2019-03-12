@@ -20,7 +20,7 @@ script = args.script
 script_dir = args.scripts_dir
 
 bat_precision = "low"
-datasets=["EnrBEGe", "EnrCoax"]
+datasets=["enrBEGe", "enrCoax", "Natural"]
 
 
 def create_job_name(script):
@@ -47,6 +47,7 @@ analysed_pseudo = [0, 1, 90113, 90114, 163840, 163841, 180233, 213003, 163851, 1
 en = 600
 line_to_replace = "dsets=(\"enrCoax\")"
 new_line = "dsets=(\"EnrBEGe\" \"EnrCoax\")"
+
 def get_new_script(script, en, it):
 	f = open(script,"r")
 	lines = f.readlines()
@@ -59,16 +60,11 @@ def get_new_script(script, en, it):
 			line = line.replace("(\"enrCoax\")", "(\"enrBEGe\" \"enrCoax\")")
 			print(line)
 		elif line.count("/nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092"):
-			line="odir=\"/nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/sensitivity_improved_fit3/\"\nif [ ! -d ${odir} ]; then\n"
+			line="odir=\"/nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/gamma_analysis_test_qsub/\"\nif [ ! -d ${odir} ]; then\n"
 			print(line)
 		elif line.count("gammacounts"):
 			line = line.replace("gammacounts", "peaksearch")
 			print(line)
-		elif line.count("en++));"):
-			if en < 1000 or en == 5000:
-				line = 'for ((en={}; en<{}; en++));'.format(en, en+400)
-			else:
-				line = 'for ((en={}; en<{}; en++));'.format(en, en+1000)
 		f.write(line)
 	f.close()
 	
@@ -79,16 +75,19 @@ ibinning = 0.3
 woi = 20
 script = scr
 log_time = str(time.time())
-command = "qsub -q gerda -V -d {} -e localhost:erlog_{}.txt   -o localhost:log_{}_{}.txt -N {} ".format\
-	(log_dir, log_time, log_time, 'limit', 'gamma_limit')
-inp_args = " -v inp_bin='{}',inp_log='{}',inp_woi='{}' {}".format\
-	(str(ibinning),log_time, woi, script)
+larmodes = ["bare", "LArAC", "LArC"]
+for lmode in larmodes:
+	for ds in datasets:
+		command = "qsub -q gerda -V -d {} -e localhost:erlog_{}.txt   -o localhost:log_{}_{}.txt -N {}_{}_{} ".format\
+			(log_dir, log_time, log_time, 'limit', 'gamma_limit', lmode, ds)
+		inp_args = " -v inp_bin='{}',inp_log='{}',inp_woi='{}',inp_lar='{}',inp_ds='{}' {}".format\
+			(str(ibinning),log_time, woi, lmode, ds, script)
 
 
 
-launch_command =  "".join([command, inp_args])
-print launch_command
-os.system(launch_command)
+		launch_command =  "".join([command, inp_args])
+		print launch_command
+		os.system(launch_command)
 
 
 

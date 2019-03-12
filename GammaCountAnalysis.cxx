@@ -53,7 +53,8 @@ int main( int argc, char** argv ){
     int choice = 0;
     bool ifresolpr = true;
     double woi = 25.;
-
+	string gfile ="";
+	string summaryfile ="PhaseII53-92_orig.root";
     bool if_pseudo_data = false;
     bool if_gammas = false;
     int pseudo_data_iter = 0;
@@ -78,12 +79,15 @@ int main( int argc, char** argv ){
                         {"pseudo_data", no_argument, 0, 't'},
                         {"pseudo_data_iteration", required_argument, 0, 'i'},
                         {"pseudo_data_path", required_argument, 0, 'f'},
+                        {"gammafile", required_argument, 0, 'n'},
+                        {"summaryfile", required_argument, 0, 's'},
                         {"ifgammaanalysis", no_argument, 0, 'z'},
+                        
 
 
                 };
 ///nfs/gerda2/users/rizalinko/gamma-analysis/GammaTierHandler.h
-        choice = getopt_long ( argc, argv, "g:e:k:d:l:b:r:o:p:j:a:i:f:w:t:z", long_options, &optIndex );
+        choice = getopt_long ( argc, argv, "g:e:k:d:l:b:r:o:p:j:a:i:f:w:n:s:tz", long_options, &optIndex );
 
         if( choice == -1 )
             break;
@@ -143,6 +147,12 @@ int main( int argc, char** argv ){
         }else if( choice== 'f'  ) {
             pseudo_data_path = check_input_str(optarg);
             cout << "pseudo data directory " << pseudo_data_path << endl;
+        }else if( choice== 'n'  ) {
+            gfile = check_input_str(optarg);
+            cout << "gammas are listed in " << gfile << endl;
+        }else if( choice== 's'  ) {
+            summaryfile = check_input_str(optarg);
+            cout << "summary file" << summaryfile << endl;
         }
 
     }
@@ -160,7 +170,7 @@ int main( int argc, char** argv ){
     else
         resCurve = (TF1*) resFile->Get("Nat");
 	vector < GammaAutoSpectrum * > specs;
-	GammaLineAnalysis *gg = new GammaLineAnalysis(out_dir);
+	GammaLineAnalysis *gg = new GammaLineAnalysis(lar, out_dir, gfile, summaryfile, binning);
     if(!if_pseudo_data) {
 		
         // create spectra (e.g. EnrCoax + EnrCoaxNoPSD for w/ and w/o LAr veto)
@@ -172,7 +182,7 @@ int main( int argc, char** argv ){
         if (lar.find("LArAC") != std::string::npos)
             spec_name.append("-LArAC");
         else if (lar.find("LArC") != std::string::npos)
-		spec_name.append("-LArC");
+			spec_name.append("-LArC");
 
         //give spectra name accordingly to psd mode
         if (psd.find("PSDAC") != std::string::npos) {

@@ -42,7 +42,7 @@ namespace std {
         };
 
         //! Constructor
-        GammaLineAnalysis( std::string logDir = ".",
+        GammaLineAnalysis( std::string lar, std::string logDir = ".",std::string gfile = "", std::string sumfile = "", double b_w=1., 
                            BCEngineMCMC::Precision precision = BCEngineMCMC::kLow );
 
         //! Destructor
@@ -61,7 +61,7 @@ namespace std {
                 //for (auto &kv : specs) gg->RegisterSpectrum(kv->GetName(), kv, resCurve);
         void RegisterSpectrum(TString name, GammaSpectrum* spectrum, TF1* resolution)
         { fSpectra->insert({name,{spectrum,resolution}});
-            };
+        };
             
             
         void RegisterSpectrum(TString name, GammaSpectrum* spectrum, double constRes)
@@ -97,8 +97,11 @@ namespace std {
         double m_pseudo_energy;
         int m_pseudo_iter;
         string m_pseudo_path = "";
- 
+		std::string fgfile;
+		std::string fSumFile;
 		void ReadLines();
+		std::string fLar ="";
+		double fSpectraBinning = 0.;
 
     };
 

@@ -98,9 +98,12 @@ class GammaLineFit
       void  WriteToCommonLog(TString name, TString logFileName="gamma.log", double exposure=-1, bool ifgammas = false);
 
      void SwitchOffPriors(){fResolPrior = false;}
+     
+     
    protected:
-      bool  ResetFit(TString, bool ifgammas = false );
-      void  EvaluateFit(TString logDir);
+	bool  ResetFit(TString, bool ifgammas = false );
+	void  EvaluateFit(TString logDir);
+	void SaveFit(TString name);
 
    private:
       //! histo
@@ -134,7 +137,7 @@ class GammaLineFit
       vector<TF1*>             fPeakPriors;
       double                   kFWHMRange = /*+-*/1;
       vector<TF1*>             fResPriors;
-
+		bool EstimateLinFit(double &s, double &f, double h, double b);
       TCanvas*                 fCanvas2;
 	bool fResolPrior = true;	
 };

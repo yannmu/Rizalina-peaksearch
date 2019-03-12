@@ -8,7 +8,20 @@
  | For documentation see http://mpp.mpg.de/bat          |
  |                                                      |
  +------------------------------------------------------+
-Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/gamma_analysis_test1/enrBEGe/binning_0.3//enrBEGe-Ac228_1588.txt
+Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/gamma_analysis_test_binning_low/enrBEGe/binning_0.3//enrBEGe-Ac228_1588.txt
 Summary : Marginalize using Metropolis
 Summary : Pre-run Metropolis MCMC...
 Summary :  --> Perform MCMC pre-run with 1 chains, each with maximum 10000 iterations
+Detail  :  --> Iteration 1000
+Detail  :  --> Iteration 2000
+Detail  :  --> Iteration 3000
+Detail  :  --> Iteration 4000
+Detail  :  --> Iteration 5000
+Detail  :      * Efficiency status: Efficiencies not within pre-defined range.
+Detail  :        - Efficiencies:
+Detail  :          Efficiency of parameter 2 dropped below 15.00% (eps = 4.36%) in chain 0. Set scale to 0.25
+Detail  :          Efficiency of parameter 3 dropped below 15.00% (eps = 0.70%) in chain 0. Set scale to 0.25
+Detail  :          Efficiency of parameter 4 dropped below 15.00% (eps = 0.30%) in chain 0. Set scale to 0.25
+Detail  :  --> Iteration 6000
+Detail  :  --> Iteration 7000
+Detail  :  --> Iteration 8000

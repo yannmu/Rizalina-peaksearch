@@ -40,7 +40,10 @@ log_file=${inp_log}
 pseudo_iter=${inp_iter}
 
 woi=${inp_woi}
-pseudo_path=${inp_pseudo_path}
+sfile="/nfs/gerda2/PhaseIIsummary/PhaseII53-92_blind.root"
+
+bin_dir="/nfs/gerda2/users/rizalinko/gamma-analysis/"
+glines="${bin_dir}/g_lines.txt"
 
 
 #dsets=("EnrBEGe" "EnrCoax" "Natural")

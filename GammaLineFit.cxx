@@ -31,96 +31,20 @@ namespace std {
         fRes->SetParameter(0, constRes);
         delete res;
     };
-
-    bool GammaLineFit::ResetFit(TString name, bool ifgammas)
-    {
-		  //! create fit function
-        if(fFitSet)  delete fFitFunction;
-        fFitFunction = new GammaFitFunction("fit",fNPeaks,fRange,fLinBkg);
-		
-		 
-        //! create fit histo
-        if(fFitSet) fFitHist->Delete();
-        fRangeBins = { fHist->GetXaxis()->FindBin(fRange.first),
-                       fHist->GetXaxis()->FindBin(fRange.second) };
-        fNBins     = fRangeBins.second - fRangeBins.first;
-        fFitHist   = new TH1D( "fitHist","", fNBins, fRange.first, fRange.second );
-        for (int i=0;i<fNBins;i++)
-            fFitHist->SetBinContent(i+1,fHist->GetBinContent(fRangeBins.first+i));
-
-        if(!fFitSet) fCanvas1 = new TCanvas();
-        fCanvas1->Clear();
-        fCanvas1->cd();
-        fFitHist->Draw();
-
-        //! evaluate limit for fit (room for improvement...)
-        double maxBkg    = 0;
-        double bkgBins   = 0;
-        bool   isPeak = false;
-        double max_bin= 0.;
-        double min_bin= 1e8;
-        for (int i=1;i<=fNBins;i++) {
-            for(int j=0; j<fNPeaks; j++) {
-                if(fabs(fFitHist->GetBinCenter(i)-fPeakPos.at(j))
-                   < 1.5*fRes->Eval(fPeakPos.at(j))) { isPeak = true; }
-            }
-            if(!isPeak) {
-                maxBkg += fFitHist->GetBinContent(i);
-                bkgBins   += 1;
-            }
-            isPeak = false;
-        }
-        maxBkg = maxBkg/bkgBins;
-
-        vector<double> maxPeakCounts;
-        maxPeakCounts.resize(fNPeaks,0);
-        for (int i=1;i<=fNBins;i++) {
-            for(int j=0; j<fNPeaks; j++) {
-                if(fabs(fFitHist->GetBinCenter(i)-fPeakPos.at(j))
-                   < fRes->Eval(fPeakPos.at(j))) {
-                    maxPeakCounts.at(j) += 1.5*fFitHist->GetBinContent(i)-0.5*maxBkg;
-                }
-            }
-        }
-        maxBkg = 1.5*maxBkg/fFitHist->GetBinWidth(0);
-
-        //! limit fit function
-        for(int i=0; i<fNPeaks; i++) {
-            fFitFunction->SetParLimits(3*i+2, 0.0, maxPeakCounts.at(i));
-        }
-        
-        //estimating slope and bckg par
-        double slope = 0;
-		std::cout << "linear fit" << std::endl;
-		double range = fRange.second - fRange.first;
-		ofstream myfile;
-		myfile.open (string(name).c_str());
-		
-		std::cout << "making a linear fit; printing out the params in " << string(name).c_str() << std::endl;
-		
-		
-		
-		myfile << "Counts in peak: " <<maxPeakCounts.at(0)<< std::endl;
-		TCanvas *c = new TCanvas();
-		fFitFunction->Draw();
-		c->SaveAs("linfit.root");
-		c->SaveAs("linfit.png");
-		myfile.close();
-		
-		delete c;
-		double free_param = 0;		
-        double s = 0.;
-        double f = 0.;
-        
-        double s1 = 0.;
+	
+	
+	bool GammaLineFit::EstimateLinFit(double &f, double &s, double maxpeakheight, double maxbkg){
+		double s1 = 0.;
         double f1 = 0.;
-        
-        
         double s2 = 0.;
         double f2 = 0.;
         if(fPeakPos.size() == 1){
 			double x1, x2 ;
-			if (fPeakPos.at(0) - fRange.first >= fRange.second - fRange.second ){
+			if (maxpeakheight < 5*maxbkg){
+				std::cout << "prelim fit on whole fit range" << std::endl;
+				x1 =fRange.first;
+				x2 = fRange.second; }
+			else if (fPeakPos.at(0) - fRange.first >= fRange.second - fPeakPos.at(0)){
 				x1 = fRange.first;
 				x2= fPeakPos.at(0) - 5;
 			}
@@ -184,8 +108,6 @@ namespace std {
 					//exit(0);
 					
 					return false;
-					f = maxBkg;
-					s = 0;				 
 				 }
 				 else{
 					 std::cout << "Goodness is bad for for the 1st func" << std::endl;
@@ -204,8 +126,97 @@ namespace std {
 			//delete fl1;
 			//delete fl2;
 			}
+			//f = 12;
+			//s = -0.006;
+			return true;
+	}
+	
+	
+	
+	
+    bool GammaLineFit::ResetFit(TString name, bool ifgammas)
+    {
+		  //! create fit function
+        if(fFitSet)  delete fFitFunction;
+        fFitFunction = new GammaFitFunction("fit",fNPeaks,fRange,fLinBkg);
+		
+		 
+        //! create fit histo
+        if(fFitSet) fFitHist->Delete();
+        fRangeBins = { fHist->GetXaxis()->FindBin(fRange.first),
+                       fHist->GetXaxis()->FindBin(fRange.second) };
+        fNBins     = fRangeBins.second - fRangeBins.first;
+        fFitHist   = new TH1D( "fitHist","", fNBins, fRange.first, fRange.second );
+        for (int i=0;i<fNBins;i++)
+            fFitHist->SetBinContent(i+1,fHist->GetBinContent(fRangeBins.first+i));
+
+        if(!fFitSet) fCanvas1 = new TCanvas();
+        fCanvas1->Clear();
+        fCanvas1->cd();
+        fFitHist->Draw();
+
+        //! evaluate limit for fit (room for improvement...)
+        double maxBkg    = 0;
+        double bkgBins   = 0;
+        bool   isPeak = false;
+        double max_bin= 0.;
+        double min_bin= 1e8;
+        for (int i=1;i<=fNBins;i++) {
+            for(int j=0; j<fNPeaks; j++) {
+                if(fabs(fFitHist->GetBinCenter(i)-fPeakPos.at(j))
+                   < 1.5*fRes->Eval(fPeakPos.at(j))) { isPeak = true; }
+            }
+            if(!isPeak) {
+                maxBkg += fFitHist->GetBinContent(i);
+                bkgBins   += 1;
+            }
+            isPeak = false;
+        }
+        maxBkg = maxBkg/bkgBins;
+
+        vector<double> maxPeakCounts;
+        maxPeakCounts.resize(fNPeaks,0);
+        for (int i=1;i<=fNBins;i++) {
+            for(int j=0; j<fNPeaks; j++) {
+                if(fabs(fFitHist->GetBinCenter(i)-fPeakPos.at(j))
+                   < fRes->Eval(fPeakPos.at(j))) {
+                    maxPeakCounts.at(j) += 1.5*fFitHist->GetBinContent(i)-0.5*maxBkg;
+                }
+            }
+        }
+        maxBkg = 1.5*maxBkg/fFitHist->GetBinWidth(0);
+
+        //! limit fit function
+        for(int i=0; i<fNPeaks; i++) {
+            fFitFunction->SetParLimits(3*i+2, 0.0, maxPeakCounts.at(i));
+            std::cout << "max peak height " << maxPeakCounts.at(i) << "\t" << "max bkg " << maxBkg << std::endl;
+        
+        }
+        //estimating slope and bckg par
+        double slope = 0;
+		std::cout << "linear fit" << std::endl;
+		double range = fRange.second - fRange.first;
+		ofstream myfile;
+		myfile.open (string(name).c_str());
+		
+		std::cout << "making a linear fit; printing out the params in " << string(name).c_str() << std::endl;
+		
+		
+		
+		myfile << "Counts in peak: " <<maxPeakCounts.at(0)<< std::endl;
+		TCanvas *c = new TCanvas();
+		fFitFunction->Draw();
+		c->SaveAs("linfit.root");
+		c->SaveAs("linfit.png");
+		myfile.close();
+		
+        double s = 0.;
+        double f = 0.;
+        
+        if (!EstimateLinFit(f, s, maxPeakCounts.at(0), maxBkg)) return false;
 		slope = s;
-		free_param = f;
+		double free_param = f;
+		
 		if (slope < 0)	{			
 			fFitFunction->SetParLimits(fPeakPos.size()*3+1, 1.4*slope, 0.6*slope);
 		}
@@ -262,26 +273,19 @@ namespace std {
         
 		
 		std::cout << "paramters fixed to" << std::endl;
-		for(int i=0; i<(int) fPeakPos.size(); i++) {			
-
-			if(ifgammas){
+		for(int i=0; i<(int) fPeakPos.size(); i++) {
+		    if(ifgammas){
                 std::cout << "mean" << i << "\t" << fPeakPos.at(i) << std::endl;
-				//fFitFunction->SetParLimits(3*i+0, fPeakPos.at(i)-kPeakPosRange,	fPeakPos.at(i)+kPeakPosRange);
-                fHistFitter->GetParameter(Form("mean%d",i))->SetLimits(fPeakPos.at(i)-kPeakPosRange,
-                                                                       fPeakPos.at(i)+kPeakPosRange);
-                //fPeakPriors.push_back(new TF1("peak","gaus(0)",fPeakPos.at(i)-3*kPeakPosRange,fPeakPos.at(i)+3*kPeakPosRange));
-                //fPeakPriors.back()->SetParameters(1,fPeakPos.at(i),fPeakPriorWidth);
-                //fHistFitter->SetPrior(Form("mean%d",i),fPeakPriors.back());
-                //fHistFitter->SetPrior(Form("mean%d",i),fPeakPriors.back());
+				fHistFitter->GetParameter(Form("mean%d",i))->SetLimits(fPeakPos.at(i)-1,
+                                                                       fPeakPos.at(i)+1);
                 std::cout <<  maxPeakCounts.at(i) << std::endl;
                 fFitFunction->SetParLimits(3*i+2, 0.0, maxPeakCounts.at(i));
 			}else
 				fHistFitter->GetParameter(Form("mean%d",i))->Fix(fPeakPos.at(i));
-				
 			if(fResolPrior){
-	
-				fHistFitter->GetParameter(Form("fwhm%d",i))->SetLimits(fRes->Eval(fPeakPos.at(i)) - 1,
-                                                                       fRes->Eval(fPeakPos.at(i)) +1 );
+				//fHistFitter->GetParameter(Form("fwhm%d",i))->SetLimits(fRes->Eval(fPeakPos.at(i)) - 1,
+                 //                                                      fRes->Eval(fPeakPos.at(i)) +1 );
+                 fHistFitter->GetParameter(Form("fwhm%d",i))->Fix(fRes->Eval(fPeakPos.at(i)));
 			}
 			std::cout << "fwhm" << i << "\t" << fRes->Eval(fPeakPos.at(i)) << std::endl;
 		}
