@@ -236,7 +236,8 @@ int main( int argc, char** argv ){
 		gg->RegisterStandardLines(woi);
 	
 	else{
-		vector<double> peaks = gg->GetCloseLinesToLine(energy, woi);
+double fwhm = resCurve->Eval(energy);
+		vector<double> peaks = gg->GetCloseLinesToLine(energy, woi, fwhm);
 		gg->RegisterLine(line, peaks,{energy - woi,energy+woi});
 		std::cout << line << "  the line is registered" << std::endl;
 	}

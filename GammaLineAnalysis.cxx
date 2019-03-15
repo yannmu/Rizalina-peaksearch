@@ -70,7 +70,7 @@ namespace std {
 					h = (TH1D*)f->Get("hRaw5");
 			}
 			if(ifgammas){
-				std::cout << "taking hist from tree" << std::endl;
+//				std::cout << "taking hist from tree" << std::endl;
 				TTree *tier4 = (TTree*)f->Get("tier4");
 				std::vector<double>* energy = new std::vector<double>();
 				std::vector<int>* dsID = new std::vector<int>();
@@ -129,7 +129,7 @@ namespace std {
 			h->Draw();
 			c->SaveAs("histfromtree.root");
 			fFitter->SetHist(h);
-			std::cout << "nbins in hist " << h->GetNbinsX() << std::endl;
+//			std::cout << "nbins in hist " << h->GetNbinsX() << std::endl;
 			//delete f;
 			//delete h;
 		}
@@ -137,21 +137,28 @@ namespace std {
 			
             for(auto& spectr : *(fSpectra)) { //loop over spectra
 
-				
+		bool igl = false;				
 				
                 fFitter->SetRes(resCurve);
-                std:;cout << "fFitter->SetRes(resCurve);" << std::endl;
-                fFitter->SetPeakPos(line.second.peakPos);
+//                std:;cout << "fFitter->SetRes(resCurve);" << std::endl;
+		for(int i =0;i<fglines.size(); i++){
+			for(int j = 0; j<fglines[i].size(); j++){
+				for (int k =0; k<line.second.peakPos.size(); k++)
+					if(abs(line.second.peakPos[k] - fglines[i][j])<1) igl = true; 
+			}
+		}
+//		std::cout<<"is ga line" << igl << std::endl;
+                fFitter->SetPeakPos(line.second.peakPos, igl);
                 fFitter->SetRange(line.second.range);
                 
-                std::cout << "fFitter->SetRange(line.second.range);" << std::endl;
+  //              std::cout << "fFitter->SetRange(line.second.range);" << std::endl;
                 /*
                 if( std::get<0>(line.second.range) < 400){
 			         fFitter->SetLinBkg(true);
 				}*/
                  
                 if(fFitter->Fit(Form("%s/%s-%s",fLogDir.Data(), spectr.first.Data(),line.first.Data()), ifgammas)){
-					std::cout << "fFitter->Fit();" << std::endl;
+					//std::cout << "fFitter->Fit();" << std::endl;
 									  
 									  
 							  
@@ -176,8 +183,8 @@ namespace std {
 				char acname[500];
 				sprintf(acname, "%s_%d",fisotopes[i].c_str(), int(fglines[i][j]) );
 				//std::cout << acname << "\t";
-				
-				vector<double> peaks = GetCloseLinesToLine(fglines[i][j], woi_current);
+				std::cout << "PUT THE REAL FWHM HERE" << std::endl;
+				vector<double> peaks = GetCloseLinesToLine(fglines[i][j], woi_current, 3);
 				//gg->RegisterLine(line, peaks,{energy - woi,energy+woi});
 				//std::cout <<  "RegisterLine(" << acname <<",{";
 				for(int p=0; p<peaks.size(); p++)
@@ -212,7 +219,7 @@ namespace std {
 			string substr;
 			getline( ss, substr, ',' );
 			if(substr.size()){
-				std::cout << "converting into double" << substr << std::endl;
+//				std::cout << "converting into double" << substr << std::endl;
 				gamma_energies.push_back(std::stod(substr));
 			}			
 		}
@@ -223,13 +230,18 @@ namespace std {
 
 
 
-std::vector<double> GammaLineAnalysis::GetCloseLinesToLine(double energy, double & woi){
+std::vector<double> GammaLineAnalysis::GetCloseLinesToLine(double energy, double & woi, double fwhm){
 	std::vector<double> peaks_pos;
 	
-	peaks_pos.push_back(energy);    
+	peaks_pos.push_back(energy);   
+
+    int add_size = ceil(fwhm);
+fwhm = ceil(fwhm);
+  //                              std::cout << "add to woi" << add_size << std::endl;
+ 
 	for(int is = 0; is<fisotopes.size(); is++){
 			for (int jen = 0; jen<fglines[is].size(); jen++){
-				if(fglines[is][jen] > energy - woi +3 && fglines[is][jen] < energy + woi -3 && fglines[is][jen]!=energy && fglines[is][jen]){
+				if(fglines[is][jen] >= energy - woi +2*fwhm && fglines[is][jen] <= energy + woi - 2*fwhm && fglines[is][jen]!=energy && fglines[is][jen]){
 					std::cout << "the closest line " << fglines[is][jen] << std::endl; 
 					std::vector<double>::iterator it = std::find(peaks_pos.begin(), peaks_pos.end(), fglines[is][jen]);
 					if (it == peaks_pos.end()){
@@ -243,27 +255,35 @@ std::vector<double> GammaLineAnalysis::GetCloseLinesToLine(double energy, double
 					else 
 						continue;
 				}
-				// right edge
-				
-				else if(fglines[is][jen] - energy - woi < 4 && fglines[is][jen] - energy - woi > 0) {
-					//std::cout << "woi was changed" << std::endl;
-					std::cout << energy << " is close to " << fglines[is][jen] << std::endl;
-					woi-=2;
-				}else if (fglines[is][jen] - energy - woi < 4 && fglines[is][jen] - energy - woi >= -3){
-					//std::cout << "woi was changed" << std::endl;
-					std::cout << energy << " is close to " << fglines[is][jen] << std::endl;
-					peaks_pos.push_back(fglines[is][jen]);
-					woi+=2;
+				// g line is close to the right edge
+				// 1 - right outside of the fit window
+				else if(fglines[is][jen] - energy - woi < 2*fwhm && fglines[is][jen] - energy - woi >= 0) {
+					std::cout << "adjsuting window; case 1 " <<fglines[is][jen] <<  std::endl;
+					woi-=add_size;
 				}
-				else if(energy - woi - fglines[is][jen] < 4 && energy - woi - fglines[is][jen] >0) {
-					//std::cout << "woi was changed" << std::endl;
-					std::cout << energy << " is close to " << fglines[is][jen] << std::endl;
-					woi-=2;
-				}else if(energy - woi - fglines[is][jen] < 4 && energy - woi - fglines[is][jen] >=-3) {
-					//std::cout << "woi was changed" << std::endl;
-					std::cout << energy << " is close to " << fglines[is][jen] << std::endl;
+				// 2 - right before the fit window
+				else if (abs(fglines[is][jen] - energy - woi) <= 2*fwhm && fglines[is][jen] < energy + woi){
+					std::cout << "adjsuting window; case 2" << std::endl;
+                                       
 					peaks_pos.push_back(fglines[is][jen]);
-					woi+=2;
+					woi+=add_size;
+				}
+				// from the left side
+				//right outside of the window
+				else if(energy - woi - fglines[is][jen] < 2*fwhm && energy - woi - fglines[is][jen] >0) {
+
+				      std::cout << "adjsuting window; case 3" << std::endl;
+                              		
+					woi-=add_size;
+				}
+
+				// right before the fit window range
+				else if(fglines[is][jen] - (energy -woi) < 2* fwhm && fglines[is][jen] - (energy -woi) >0 ) {
+					//std::cout << "woi was changed" << std::endl;
+				      std::cout << "adjsuting window; case 4" << std::endl;
+                                       
+					peaks_pos.push_back(fglines[is][jen]);
+					woi+=add_size;
 				}
 		}
 	}

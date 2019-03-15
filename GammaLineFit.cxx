@@ -33,71 +33,123 @@ namespace std {
     };
 	
 	
-	bool GammaLineFit::EstimateLinFit(double &f, double &s, double maxpeakheight, double maxbkg){
+	bool GammaLineFit::EstimateLinFit(double &f, double &s, std::vector<double> maxpeakheight, double maxbkg){
 		double s1 = 0.;
         double f1 = 0.;
         double s2 = 0.;
         double f2 = 0.;
         if(fPeakPos.size() == 1){
 			double x1, x2 ;
-			if (maxpeakheight < 5*maxbkg){
+			double fwhm = fRes->Eval(fPeakPos[0]);
+			if (maxpeakheight[0] < 5*sqrt(maxbkg)){
 				std::cout << "prelim fit on whole fit range" << std::endl;
 				x1 =fRange.first;
 				x2 = fRange.second; }
-			else if (fPeakPos.at(0) - fRange.first >= fRange.second - fPeakPos.at(0)){
+			else if (fPeakPos.at(0) - fRange.first > fRange.second - fPeakPos.at(0)){
 				x1 = fRange.first;
-				x2= fPeakPos.at(0) - 5;
-			}
-			else{
-				x1 = fPeakPos.at(0) + 5;
-				x2 = fRange.second;
-			}
-			TF1 *f2 = new TF1("linfit", "[0]+[1]*x", x1, x2);
-			fHist->Fit("linfit", "FLR");
+				x2= fPeakPos.at(0) - 2*fwhm;
+				//if(fgl) x2 -=2;
+				if(abs(fPeakPos.at(0) - 1460) < 2 or abs(fPeakPos.at(0) - 1525)<2)x2-=2;
+				 TF1 *f2 = new TF1("linfit", "[0]+[1]*x", x1, x2);
+	                       fHist->Fit("linfit", "FLR");
+	
+        	               f1 = f2->GetParameter(0);
+                	       s1 = f2->GetParameter(1);
+
+				}
+				else if (fPeakPos.at(0) - fRange.first ==fRange.second - fPeakPos.at(0)){
+					x1 = fPeakPos.at(0) + 2*fwhm;
+					//if (fgl) x1+=2;
+std::cout << "is ga line" << fgl<<std::endl;
+			 if(abs(fPeakPos.at(0) - 1460) < 2 or abs(fPeakPos.at(0) - 1525)<2)x1+=2;
+					x2 = fRange.second;
+					TF1* f = new TF1("linfit", "[0]+[1]*x", x1, x2);
+                                	fHist->Fit("linfit", "FLR");
+
+                                	f2 = f->GetParameter(0);
+                                	s2 = f->GetParameter(1);
+                               
+			}	
+
 			
-			f = f2->GetParameter(0);
-			s = f2->GetParameter(1);
-			std::cout << "Goodnes: " << double(f2->GetChisquare()/f2->GetNDF()) << std::endl;
-			delete f2;
+				if (s1==0 && f1==0 && s2 == 0 && f2 ==0){
+				TF1 *f2 = new TF1("linfit", "[0]+[1]*x", x1, x2);
+				fHist->Fit("linfit", "FLR");
+			
+				f = f2->GetParameter(0);
+				s = f2->GetParameter(1);
+				std::cout << "Goodnes: " << double(f2->GetChisquare()/f2->GetNDF()) << std::endl;
+				delete f2;}
+				else if(s1 == 0 && f1 == 0){
+				s = s2; f = f2;
+				}else if (s2 == 0 && f2 ==0){
+							
+				s = s1; f = f1;
+				}else{
+				s = (s1+s2)/2.; f = (f1+f2)/2.;
+	}
+
+std::cout << "lin fit one peak on the range " << x1 << "\t" << x2 << std::endl;                   
+
 
 		}
 		else{
 			double max_peak = *max_element(fPeakPos.begin(), fPeakPos.end());
+			int maxElIdx = std::max_element(fPeakPos.begin(),fPeakPos.end()) - fPeakPos.begin();
 			double min_peak = *min_element(fPeakPos.begin(), fPeakPos.end());
+			  int minElIdx = std::min_element(fPeakPos.begin(),fPeakPos.end()) - fPeakPos.begin();
 			std::cout<<"Max/min value: "<<max_peak << "\t"<< min_peak << std::endl;
-			
+		std::cout << "idx max min el" << maxElIdx << "\t" << minElIdx << std::endl;	
 			
 			TF1 *fl1;// = new TF1();
 			TF1 *fl2;// = new TF1();
 			
 			double cndf1 = 0.;
 			double cndf2 = 0.;
-			
-			if( min_peak- fRange.first > 8){
-				fl1 = new TF1("linfit1", "[0]+[1]*x", fRange.first,min_peak-5);
+			double fwhm = ceil(fRes->Eval(min_peak));
+			double x1, x2;
+
+			// fit for the peak with the smallest en
+			if( min_peak- fRange.first > 3*fwhm){
+				x1 =fRange.first;
+				
+				// if the height of the peak w/min energy is small
+				if (maxpeakheight[minElIdx] < 4*sqrt(maxbkg)){
+                                x2 =max_peak -2*fwhm;}
+				
+				else x2 = min_peak -2*fwhm;
+				std::cout << "1st line bkg to the range" << x1 << "\t" << x2 <<std::endl;
+				fl1 = new TF1("linfit1", "[0]+[1]*x", x1,x2);
 				std::cout << "*** ******************* 1st fit **********************" <<  std::endl;
 				fHist->Fit(fl1, "LR");
 				cndf1 = double(fl1->GetChisquare()/fl1->GetNDF());
 				std::cout << "Goodnes 1st lin" <<fl1->GetNDF()<<"\t" << cndf1 << std::endl;
 				f1 = (fl1->GetParameter(0));
-	            s1 = (fl1->GetParameter(1));
+			        s1 = (fl1->GetParameter(1));
+
+
+
 			}else std::cout << "1st peak is out of range" << std::endl;
 			
-			if (fRange.second - max_peak > 8){
-				fl2 = new TF1("linfit2", "[0]+[1]*x", max_peak+5, fRange.second );
+			if (fRange.second - max_peak > 3*fwhm){
+				 if (maxpeakheight[maxElIdx] < 4*sqrt(maxbkg)){
+                                x1 =min_peak +2*fwhm;}
+				else x1 = max_peak+2*fwhm;
+				std::cout << "fit around the 2nd peak " << x1 << "\t" << fRange.second << std::endl;
+				fl2 = new TF1("linfit2", "[0]+[1]*x", ceil(x1), fRange.second );
 				std::cout << "*********************** 2nd fit **********************" <<  std::endl;
-                fHist->Fit(fl2, "LRF");
-                cndf2 = double(fl2->GetChisquare()/fl2->GetNDF());
+		                fHist->Fit(fl2, "LRF");
+                		cndf2 = double(fl2->GetChisquare()/fl2->GetNDF());
 				std::cout << "Goodnes 2nd lin"  << fl2->GetNDF()<<"\t" <<cndf2 << std::endl;
 				 f2 = (fl2->GetParameter(0));
-	  	         s2 = (fl2->GetParameter(1));
+		  	         s2 = (fl2->GetParameter(1));
 
 			}else std::cout << "2nd peak is out of range" << std::endl;
 			 
 
-			 if (cndf1 > 1.1 || cndf1 < 0.5){
+			 if (cndf1 > 2|| cndf1 < 0.5){
 				 
-				 if (cndf2 > 1.1 || cndf2 < 0.5){
+				 if (cndf2 > 2|| cndf2 < 0.5){
 					 
 					std::cout << "***********************************" << std::endl;
 					
@@ -106,15 +158,16 @@ namespace std {
 					std::cout << "***********************************" << std::endl;
 					
 					//exit(0);
-					
-					return false;
+					s = 0;
+					f = maxbkg;
+					//return false;
 				 }
 				 else{
 					 std::cout << "Goodness is bad for for the 1st func" << std::endl;
 					 f = f2;
 					 s = s2;
 				 }
-			}else if(cndf2 > 1.1 || cndf2 < 0.5){
+			}else if(cndf2 > 2 || cndf2 < 0.5){
 				 std::cout << "Goodness is bad for for the 2nd func" << std::endl;
 				 f = f1;
 	             s = s1;
@@ -128,7 +181,11 @@ namespace std {
 			}
 			//f = 12;
 			//s = -0.006;
-			return true;
+
+			if(abs(fPeakPos.at(0) - 1460) < 2 or abs(fPeakPos.at(0) - 1525)<2){
+s = 0; f = maxbkg;
+}
+return true;
 	}
 	
 	
@@ -180,15 +237,17 @@ namespace std {
             for(int j=0; j<fNPeaks; j++) {
                 if(fabs(fFitHist->GetBinCenter(i)-fPeakPos.at(j))
                    < fRes->Eval(fPeakPos.at(j))) {
-                    maxPeakCounts.at(j) += 1.5*fFitHist->GetBinContent(i)-0.5*maxBkg;
+                    maxPeakCounts.at(j) += fFitHist->GetBinContent(i)-maxBkg;
                 }
             }
         }
-        maxBkg = 1.5*maxBkg/fFitHist->GetBinWidth(0);
+        maxBkg = maxBkg/fFitHist->GetBinWidth(0);
 
         //! limit fit function
         for(int i=0; i<fNPeaks; i++) {
-            fFitFunction->SetParLimits(3*i+2, 0.0, maxPeakCounts.at(i));
+              if( maxPeakCounts.at(i)<1)  maxPeakCounts.at(i) =1;
+
+		fFitFunction->SetParLimits(3*i+2, 0.0, maxPeakCounts.at(i));
             std::cout << "max peak height " << maxPeakCounts.at(i) << "\t" << "max bkg " << maxBkg << std::endl;
         
         }
@@ -213,15 +272,15 @@ namespace std {
         double s = 0.;
         double f = 0.;
         
-        if (!EstimateLinFit(f, s, maxPeakCounts.at(0), maxBkg)) return false;
+        if (!EstimateLinFit(f, s, maxPeakCounts, maxBkg)) return false;
 		slope = s;
 		double free_param = f;
 		
 		if (slope < 0)	{			
-			fFitFunction->SetParLimits(fPeakPos.size()*3+1, 1.4*slope, 0.6*slope);
+			fFitFunction->SetParLimits(fPeakPos.size()*3+1, 1.5*slope, 0);
 		}
 		else {
-			fFitFunction->SetParLimits(fPeakPos.size()*3+1, 0.6*slope, 1.4*slope);		
+			fFitFunction->SetParLimits(fPeakPos.size()*3+1, 0., 1.5*slope);		
 		}
 		
 		if (free_param < 0)
@@ -360,7 +419,7 @@ void GammaLineFit::SaveFit(TString name){
 	outfile.open(fname);
 	
 	outfile << "entries" << fHistFitter->GetHistogram()->GetEntries() << endl;
-	std::cout << "entried" << std::endl;
+//	std::cout << "entried" << std::endl;
 
 	for (int i=0; i<fHistFitter->GetHistogram()->GetEntries(); i++){
 		outfile << fHistFitter->GetHistogram()->GetBinCenter(i) << "\t";
@@ -384,14 +443,15 @@ void GammaLineFit::SaveFit(TString name){
 		}
 
 		outfile << endl;
-		std::cout << "fitf"<< std::endl;
+//		std::cout << "fitf"<< std::endl;
 		for(int i =0; i<100; i++){
 			double a = 0;
 			double b = 0;
 			fHistFitter->GetFitFunctionGraph(fHistFitter->GetBestFitParameters())->GetPoint(i, a, b);
 			outfile << b << "\t";
 		}
-	}else std::cout << "fitf"<< std::endl;
+	}
+//else std::cout << "fitf"<< std::endl;
 
 	outfile << endl;
 	if(fHistFitter->GetErrorBand()){ 
@@ -403,10 +463,10 @@ void GammaLineFit::SaveFit(TString name){
 			double b = 0;
 			fHistFitter->GetErrorBand() ->GetPoint(i, a, b);
 			outfile << a << "\t";
-			std::cout << i << "\t" << a << "\t";
+//			std::cout << i << "\t" << a << "\t";
 			
 		}
-		std::cout << "band"<< std::endl;
+//		std::cout << "band"<< std::endl;
 		
 		outfile << endl;
 		for(int i =0; i<fHistFitter->GetErrorBand()->GetN(); i++){

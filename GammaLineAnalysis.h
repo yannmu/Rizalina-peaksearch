@@ -80,7 +80,7 @@ namespace std {
             m_pseudo_energy = energy;
         }
         
-	std::vector<double> GetCloseLinesToLine(double energy,  double & woi);
+	std::vector<double> GetCloseLinesToLine(double energy,  double & woi, double fwhm);
 
     private:
 		std::vector<std::string> fisotopes;

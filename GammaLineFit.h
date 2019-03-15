@@ -42,13 +42,13 @@ class GammaLineFit
        pair<double,double> range) : GammaLineFit() {
          SetHist(hist);
          SetRes(res);
-         SetPeakPos(peakPos);
+         SetPeakPos(peakPos, false);
          SetRange(range); };
       GammaLineFit(TH1D* hist, double res, vector<double> peakPos,
        pair<double,double> range) : GammaLineFit() {
          SetHist(hist);
          SetRes(res);
-         SetPeakPos(peakPos);
+         SetPeakPos(peakPos, false);
          SetRange(range); };
       //! destructor
       virtual ~GammaLineFit() {
@@ -88,10 +88,11 @@ class GammaLineFit
       void  SetPrecision(BCEngineMCMC::Precision precision) { fPrecision=precision;           };
 
       //! methods and special setters
+      bool fgl = false;
       void  SetHist(TH1D* hist);
       void  SetRes(TF1* resCurve);
       void  SetRes(double constRes);
-      void  SetPeakPos(vector<double> peakPos)  { fPeakPos=peakPos; fNPeaks=(int) peakPos.size(); };
+      void  SetPeakPos(vector<double> peakPos, bool igl)  { fPeakPos=peakPos; fNPeaks=(int) peakPos.size();fgl = igl; };
       void  AddPeakPos(double peakPos)          { fPeakPos.push_back(peakPos); fNPeaks++;         };
       void  SetRange(pair<double,double> range) { fRange=range; fRangeSet=true;                   };
       bool  Fit(TString name = "fit", bool ifgammas = false);
@@ -137,7 +138,7 @@ class GammaLineFit
       vector<TF1*>             fPeakPriors;
       double                   kFWHMRange = /*+-*/1;
       vector<TF1*>             fResPriors;
-		bool EstimateLinFit(double &s, double &f, double h, double b);
+	bool EstimateLinFit(double &s, double &f, std::vector<double> h, double b);
       TCanvas*                 fCanvas2;
 	bool fResolPrior = true;	
 };
