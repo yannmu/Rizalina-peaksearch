@@ -51,7 +51,8 @@ namespace std {
 				//if(fgl) x2 -=2;
 				if(abs(fPeakPos.at(0) - 1460) < 2 or abs(fPeakPos.at(0) - 1525)<2)x2-=2;
 				 TF1 *f2 = new TF1("linfit", "[0]+[1]*x", x1, x2);
-	                       fHist->Fit("linfit", "FLR");
+				f2->SetParLimits(0, 0, maxbkg);
+	                         fHist->Fit("linfit", "FLR");
 	
         	               f1 = f2->GetParameter(0);
                 	       s1 = f2->GetParameter(1);
@@ -64,6 +65,7 @@ std::cout << "is ga line" << fgl<<std::endl;
 			 if(abs(fPeakPos.at(0) - 1460) < 2 or abs(fPeakPos.at(0) - 1525)<2)x1+=2;
 					x2 = fRange.second;
 					TF1* f = new TF1("linfit", "[0]+[1]*x", x1, x2);
+					f->SetParLimits(0, 0, maxbkg);
                                 	fHist->Fit("linfit", "FLR");
 
                                 	f2 = f->GetParameter(0);
@@ -74,6 +76,7 @@ std::cout << "is ga line" << fgl<<std::endl;
 			
 				if (s1==0 && f1==0 && s2 == 0 && f2 ==0){
 				TF1 *f2 = new TF1("linfit", "[0]+[1]*x", x1, x2);
+				f2->SetParLimits(0, 0, maxbkg);
 				fHist->Fit("linfit", "FLR");
 			
 				f = f2->GetParameter(0);
