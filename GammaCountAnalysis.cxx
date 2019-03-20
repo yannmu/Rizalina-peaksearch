@@ -57,6 +57,7 @@ int main( int argc, char** argv ){
 	string summaryfile ="PhaseII53-92_orig.root";
     bool if_pseudo_data = false;
     bool if_gammas = false;
+    bool if_test = false;
     int pseudo_data_iter = 0;
     string pseudo_data_path = "";
     while(1){
@@ -82,12 +83,13 @@ int main( int argc, char** argv ){
                         {"gammafile", required_argument, 0, 'n'},
                         {"summaryfile", required_argument, 0, 's'},
                         {"ifgammaanalysis", no_argument, 0, 'z'},
+                        {"iftest", no_argument, 0, 'u'},
                         
 
 
                 };
 ///nfs/gerda2/users/rizalinko/gamma-analysis/GammaTierHandler.h
-        choice = getopt_long ( argc, argv, "g:e:k:d:l:b:r:o:p:j:a:i:f:w:n:s:tz", long_options, &optIndex );
+        choice = getopt_long ( argc, argv, "g:e:k:d:l:b:r:o:p:j:a:i:f:w:n:s:tzu", long_options, &optIndex );
 
         if( choice == -1 )
             break;
@@ -153,6 +155,9 @@ int main( int argc, char** argv ){
         }else if( choice== 's'  ) {
             summaryfile = check_input_str(optarg);
             cout << "summary file" << summaryfile << endl;
+        }else if( choice== 'u'  ) {
+            if_test = true;
+            cout << "Running tests " << endl;
         }
 
     }
@@ -170,7 +175,7 @@ int main( int argc, char** argv ){
     else
         resCurve = (TF1*) resFile->Get("Nat");
 	vector < GammaAutoSpectrum * > specs;
-	GammaLineAnalysis *gg = new GammaLineAnalysis(lar, out_dir, gfile, summaryfile, binning);
+	GammaLineAnalysis *gg = new GammaLineAnalysis(dataset, lar, out_dir, gfile, summaryfile, binning);
     if(!if_pseudo_data) {
 		
         // create spectra (e.g. EnrCoax + EnrCoaxNoPSD for w/ and w/o LAr veto)
@@ -233,19 +238,19 @@ int main( int argc, char** argv ){
 
 	
 	if(if_gammas)
-		gg->RegisterStandardLines(woi);
+		gg->RegisterStandardLines(woi, resCurve);
 	
 	else{
-double fwhm = resCurve->Eval(energy);
+		double fwhm = resCurve->Eval(energy);
 		vector<double> peaks = gg->GetCloseLinesToLine(energy, woi, fwhm);
 		gg->RegisterLine(line, peaks,{energy - woi,energy+woi});
 		std::cout << line << "  the line is registered" << std::endl;
 	}
 
 
-
+std::cout<< if_gammas<< if_test<<std::endl;
     // start fits (will fit registered lines to registerd spectra)
-    gg->PerformFits(resCurve, ifresolpr, if_gammas);
+    gg->PerformFits(resCurve, ifresolpr, if_gammas, if_test);
     // you will find some output in the log directory
     // *spectrName*lineName*.pdf  -> posterior distributions
     // *spectrName*lineName*.png  -> pic of the fit

@@ -1,8 +1,8 @@
-#----------------------------------------------------------------------------
+
 # Setup the project
 
 cmake_minimum_required(VERSION 2.8)
-project(peaksearch)
+project(gtest)
 
 SET(CMAKE_CXX_FLAGS "-std=c++11 -O3")
 set(CMAKE_CXX_STANDARD 11)
@@ -82,7 +82,7 @@ set(all_root_libs ${ROOT_LIBRARIES})
 #list(REMOVE_DUPLICATES ROOT_LIBRARIES)
 #set(SOURCE_FILES main.cpp)
 
-add_executable(peaksearch GammaCountAnalysis.cxx)
+add_executable(gtest GammaCountAnalysis.cxx)
 # GammaUtilities.h GammaTierHandler.h GammaSpectrum.h GammaProtoFunctions.h GammaLineFit.h GammaLineAnalysis.h GammaFitFunction.h GammaEvent.h GammaSpectrum.cxx GammaLineFit.cxx GammaTierHandler.cxx)
-target_link_libraries(peaksearch ${all_root_libs}  libBATmodels.so libBAT.so )
+target_link_libraries(gtest ${all_root_libs}  libBATmodels.so libBAT.so )
 

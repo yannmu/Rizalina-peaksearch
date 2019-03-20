@@ -31,9 +31,158 @@ namespace std {
         fRes->SetParameter(0, constRes);
         delete res;
     };
-	
+
+	bool GammaLineFit::FitLinear(double x1, double x2, double &f, double &s, double maxbkg) {
+		std::cout << "FitLinear" << std::endl;
+
+		TF1 *f2 = new TF1("linfit", "[0]+[1]*x", x1, x2);
+		f2->SetParLimits(0, 0, maxbkg);
+		fHist->Fit("linfit", "FLR");
+
+		f = f2->GetParameter(0);
+		s = f2->GetParameter(1);
+		return true;
+	}
+
+	bool GammaLineFit::FitGauss(double x1, double x2, double &f, double &s, double maxpeakheight, double peakpos, double maxbkg) {
+		std::cout << "FitGauss" << std::endl;
+
+		double fwhm = fRes->Eval(peakpos);
+		TF1* g1 = new TF1("l1","pol1",x1,peakpos-2*fwhm);
+		TF1* g2 = new TF1("l2","pol1",peakpos+2*fwhm,x2);
+
+		TF1* g3 = new TF1("m3","gaus",peakpos-2*fwhm, peakpos+2*fwhm);
+		// The total is the sum of the three, each has 3 parameters
+		TF1* total = new TF1("mstotal","pol1(0)+pol1(2)+gaus(4)", x1, x2);
+
+		g1->SetParLimits(0, 0, maxbkg);
+		g2->SetParLimits(0, 0, maxbkg);
+		g3->SetParLimits(0, 0, maxpeakheight);
+		g3->FixParameter(1, peakpos);
+		g3->FixParameter(2, fwhm/2.55);
+
+		fHist->Fit(g1,"R");
+		fHist->Fit(g2,"R+");
+		fHist->Fit(g3,"R+");
+
+		Double_t par[7];
+		// Get the parameters from the fit
+		g1->GetParameters(&par[0]);
+		g2->GetParameters(&par[2]);
+		g3->GetParameters(&par[4]);
+
+		// Use the parameters on the sum
+		total->SetParameters(par);
+		//g3->SetParLimits(0, 0, maxpeakheight[0]);
+		total->FixParameter(5, fPeakPos.at(0));
+		total->FixParameter(6, fRes->Eval(fPeakPos.at(0))/2.55);
+		fHist->Fit(total,"R+");
+		f = (par[0]+par[2])/2;
+		s = (par[1]+par[3])/2;
+		return true;
+
+	}
+    bool GammaLineFit::FitOnePeak(double x1, double x2, double &f, double &s, double maxpeakheight, double peakpos, double maxbkg){
+		std::cout << "FitOnePeak" << std::endl;
+
+		if(maxpeakheight < 3*sqrt(maxbkg)){
+    		return FitLinear(x1, x2, f, s, maxbkg);
+    	}
+    	else return FitGauss(x1,x2, f, s, maxpeakheight, peakpos, maxbkg);
+    }
+
+	bool GammaLineFit::FitTwoGauss(double x1, double x2, double &f, double &s, std::vector<double> maxpeakheight, std::vector<double> peakpos, double maxbkg){
+		std::cout << "FitTwoGauss" << std::endl;
+		double fwhm = fRes->Eval(peakpos[0]);
+		if (peakpos[0]>peakpos[1]){
+			double tmp = peakpos[0];
+			peakpos[0] = peakpos[1];
+			peakpos[1] = tmp;
+
+			tmp = maxpeakheight[0];
+			maxpeakheight[0] = maxpeakheight[1];
+			maxpeakheight[1] = tmp;
+		}
+
+		TF1* g1 = new TF1("l1","pol1",x1, peakpos[0]-2*fwhm);
+		TF1* g2 = new TF1("l2","pol1",peakpos[1]+2*fwhm,x2);
+		TF1* g3 = new TF1("m3","gaus",peakpos[0]-2*fwhm,peakpos[0]+2*fwhm);
+		TF1* g4 = new TF1("m4","gaus",peakpos[1]-2*fwhm,peakpos[1]+2*fwhm);
+
+		TF1* total = new TF1("mstotal","pol1(0)+pol1(2)+gaus(4)+gaus(7)", x1, x2 );
+
+		g1->SetParLimits(0, 0, maxbkg);
+		g2->SetParLimits(0, 0, maxbkg);
+		if (maxpeakheight[0]>1)	g3->SetParLimits(0, 0, maxpeakheight[0]);
+		g3->FixParameter(1, peakpos[0]);
+		g3->FixParameter(2, fwhm/2.55);
+
+		if (maxpeakheight[1]>1) g4->SetParLimits(0, 0, maxpeakheight[1]);
+		g4->FixParameter(1, peakpos[1]);
+		g4->FixParameter(2, fRes->Eval(peakpos[1])/2.55);
+
+
+		fHist->Fit(g1,"R");
+		fHist->Fit(g2,"R+");
+		fHist->Fit(g3,"R+");
+		fHist->Fit(g4,"R+");
+
+		Double_t par[10];
+		// Get the parameters from the fit
+		g1->GetParameters(&par[0]);
+		g2->GetParameters(&par[2]);
+		g3->GetParameters(&par[4]);
+		g4->GetParameters(&par[7]);
+
+		// Use the parameters on the sum
+		total->SetParameters(par);
+		//g3->SetParLimits(0, 0, maxpeakheight[0]);
+		total->FixParameter(5, peakpos[0]);
+		total->FixParameter(6, fwhm/2.55);
+
+		total->FixParameter(8, peakpos[1]);
+		total->FixParameter(9, fRes->Eval(peakpos[1])/2.55);
+		fHist->Fit(total,"R+");
+		f=(par[0]+par[2])/2;
+		s = (par[1]+par[3])/2;
+		return true;
+	}
+
+	bool GammaLineFit::FitTwoPeak(double x1, double x2, double &f, double &s, std::vector<double> maxpeakheight, std::vector<double> peakpos, double maxbkg){
+		std::cout << "FitTwoPeak" << std::endl;
+		double fwhm = fRes->Eval(peakpos[0]);
+		if( maxpeakheight[0] < 3*sqrt(maxbkg))
+			return FitOnePeak(x1, x2, f, s, maxpeakheight[1], peakpos[1], maxbkg);
+		else if ( maxpeakheight[1] < 3*sqrt(maxbkg))
+			return FitOnePeak(x1, x2, f, s, maxpeakheight[0], peakpos[0], maxbkg);
+		else if (fabs(peakpos[0] - x1) < 2*fwhm && peakpos[0]>x1)
+			return FitOnePeak(peakpos[0]+2*fwhm, x2, f, s, maxpeakheight[1], peakpos[1], maxbkg);
+		else if (fabs(peakpos[1] - x2) < 2*fwhm && peakpos[1]<x2)
+			return FitOnePeak(x1, peakpos[1]-2*fwhm, f, s, maxpeakheight[1], peakpos[1], maxbkg);
+		else
+			return FitTwoGauss(x1, x2, f, s, maxpeakheight, peakpos, maxbkg);
+	}
+
+	bool GammaLineFit::FitTreePeak(double x1, double x2, double &f, double &s, std::vector<double> maxpeakheight, std::vector<double> peakpos, double maxbkg){
+		std::cout << "FitTreePeak" << std::endl;
+		double fwhm = fRes->Eval(peakpos[0]);
+
+		if(maxpeakheight[1] < 3*sqrt(maxbkg) || maxpeakheight[2] < 3*sqrt(maxbkg))
+			return FitTwoGauss(x1, x2, f, s, maxpeakheight, peakpos, maxbkg);
+		else
+			return FitTwoGauss(peakpos[0]+2*fwhm, x2, f, s, maxpeakheight, peakpos, maxbkg);
+	}
 	
 	bool GammaLineFit::EstimateLinFit(double &f, double &s, std::vector<double> maxpeakheight, double maxbkg){
+		switch (fPeakPos.size()) {
+			case 1: return FitOnePeak(fRange.first, fRange.second, f, s, maxpeakheight[0], fPeakPos[0], maxbkg);
+			case 2: return FitTwoPeak(fRange.first, fRange.second, f, s, maxpeakheight, fPeakPos, maxbkg);
+			case 3: return FitTreePeak(fRange.first, fRange.second, f, s, maxpeakheight, fPeakPos, maxbkg);
+			case 4: return FitTreePeak(fPeakPos[0]+2*fRes->Eval(fPeakPos[0]), fRange.second, f, s, maxpeakheight, fPeakPos, maxbkg);
+
+		}
+	}
+	/*bool GammaLineFit::EstimateLinFit(double &f, double &s, std::vector<double> maxpeakheight, double maxbkg){
 		double s1 = 0.;
         double f1 = 0.;
         double s2 = 0.;
@@ -44,37 +193,78 @@ namespace std {
 			if (maxpeakheight[0] < 5*sqrt(maxbkg)){
 				std::cout << "prelim fit on whole fit range" << std::endl;
 				x1 =fRange.first;
-				x2 = fRange.second; }
-			else if (fPeakPos.at(0) - fRange.first > fRange.second - fPeakPos.at(0)){
+				x2 = fRange.second; 
+			}else if (fPeakPos.at(0) - fRange.first > fRange.second - fPeakPos.at(0)){
 				x1 = fRange.first;
 				x2= fPeakPos.at(0) - 2*fwhm;
 				//if(fgl) x2 -=2;
 				if(abs(fPeakPos.at(0) - 1460) < 2 or abs(fPeakPos.at(0) - 1525)<2)x2-=2;
-				 TF1 *f2 = new TF1("linfit", "[0]+[1]*x", x1, x2);
+				TF1 *f2 = new TF1("linfit", "[0]+[1]*x", x1, x2);
 				f2->SetParLimits(0, 0, maxbkg);
-	                         fHist->Fit("linfit", "FLR");
-	
-        	               f1 = f2->GetParameter(0);
-                	       s1 = f2->GetParameter(1);
+				fHist->Fit("linfit", "FLR");
 
-				}
-				else if (fPeakPos.at(0) - fRange.first ==fRange.second - fPeakPos.at(0)){
-					x1 = fPeakPos.at(0) + 2*fwhm;
-					//if (fgl) x1+=2;
-std::cout << "is ga line" << fgl<<std::endl;
-			 if(abs(fPeakPos.at(0) - 1460) < 2 or abs(fPeakPos.at(0) - 1525)<2)x1+=2;
-					x2 = fRange.second;
-					TF1* f = new TF1("linfit", "[0]+[1]*x", x1, x2);
-					f->SetParLimits(0, 0, maxbkg);
-                                	fHist->Fit("linfit", "FLR");
-
-                                	f2 = f->GetParameter(0);
-                                	s2 = f->GetParameter(1);
-                               
-			}	
+				f1 = f2->GetParameter(0);
+				s1 = f2->GetParameter(1);
 
 			
-				if (s1==0 && f1==0 && s2 == 0 && f2 ==0){
+			/*}else if (fPeakPos.at(0) - fRange.first ==fRange.second - fPeakPos.at(0)){
+				x1 = fPeakPos.at(0) + 2*fwhm;
+				//if (fgl) x1+=2;
+				//std::cout << "is ga line" << fgl<<std::endl;
+				if(abs(fPeakPos.at(0) - 1460) < 2 or abs(fPeakPos.at(0) - 1525)<2)x1+=2;
+				x2 = fRange.second;
+				TF1* f = new TF1("linfit", "[0]+[1]*x", x1, x2);
+				f->SetParLimits(0, 0, maxbkg);
+				fHist->Fit("linfit", "FLR");
+
+				f2 = f->GetParameter(0);
+				s2 = f->GetParameter(1);
+				std::cout << "the upepr lim on the bkg" << std::endl;                               
+			}*/	
+/*
+			}else if (fPeakPos.at(0) - fRange.first ==fRange.second - fPeakPos.at(0)){
+				x1 = fPeakPos.at(0) + 2*fwhm;
+				//if (fgl) x1+=2;
+				//std::cout << "is ga line" << fgl<<std::endl;
+				if(abs(fPeakPos.at(0) - 1460) < 2 or abs(fPeakPos.at(0) - 1525)<2)x1+=2;
+				x2 = fRange.second;
+
+				TF1* g1 = new TF1("l1","pol1",fRange.first,fPeakPos.at(0)-2*fRes->Eval(fPeakPos.at(0)));
+			
+				TF1* g2 = new TF1("l2","pol1",fPeakPos.at(0)+2*fRes->Eval(fPeakPos.at(0)),fRange.second);
+				
+				TF1* g3 = new TF1("m3","gaus",fPeakPos.at(0)-2*fRes->Eval(fPeakPos.at(0)), fPeakPos.at(0)+2*fRes->Eval(fPeakPos.at(0)));
+				// The total is the sum of the three, each has 3 parameters
+				TF1* total = new TF1("mstotal","pol1(0)+pol1(2)+gaus(4)", fRange.first,fRange.second );  
+
+				g1->SetParLimits(0, 0, maxbkg);
+				g2->SetParLimits(0, 0, maxbkg);
+				g3->SetParLimits(0, 0, maxpeakheight[0]);
+				g3->FixParameter(1, fPeakPos.at(0));				
+				g3->FixParameter(2, fRes->Eval(fPeakPos.at(0))/2.55);		
+				
+				fHist->Fit(g1,"R");
+				fHist->Fit(g2,"R+");
+				fHist->Fit(g3,"R+");
+				
+				 Double_t par[7];
+				// Get the parameters from the fit
+				g1->GetParameters(&par[0]);
+				g2->GetParameters(&par[2]);
+				g3->GetParameters(&par[4]);
+
+				// Use the parameters on the sum
+				total->SetParameters(par);
+				//g3->SetParLimits(0, 0, maxpeakheight[0]);
+				total->FixParameter(5, fPeakPos.at(0));				
+				total->FixParameter(6, fRes->Eval(fPeakPos.at(0))/2.55);		
+				fHist->Fit(total,"R+"); 
+				f=(par[0]+par[2])/2;
+				s = (par[1]+par[3])/2;
+				 return true;
+			}                        
+			
+			if (s1==0 && f1==0 && s2 == 0 && f2 ==0){
 				TF1 *f2 = new TF1("linfit", "[0]+[1]*x", x1, x2);
 				f2->SetParLimits(0, 0, maxbkg);
 				fHist->Fit("linfit", "FLR");
@@ -82,27 +272,105 @@ std::cout << "is ga line" << fgl<<std::endl;
 				f = f2->GetParameter(0);
 				s = f2->GetParameter(1);
 				std::cout << "Goodnes: " << double(f2->GetChisquare()/f2->GetNDF()) << std::endl;
-				delete f2;}
-				else if(s1 == 0 && f1 == 0){
+				delete f2;
+			}
+			else if(s1 == 0 && f1 == 0){
 				s = s2; f = f2;
-				}else if (s2 == 0 && f2 ==0){
-							
+			}else if (s2 == 0 && f2 ==0){						
 				s = s1; f = f1;
-				}else{
+			}else{
 				s = (s1+s2)/2.; f = (f1+f2)/2.;
-	}
+			}
 
-std::cout << "lin fit one peak on the range " << x1 << "\t" << x2 << std::endl;                   
+			std::cout << "lin fit one peak on the range " << x1 << "\t" << x2 << std::endl;
+			if (s1==0 && f1==0 && s2 == 0 && f2 ==0){
+				TF1 *f2 = new TF1("linfit", "[0]+[1]*x", x1, x2);
+				f2->SetParLimits(0, 0, maxbkg);
+				fHist->Fit("linfit", "FLR");
+			
+				f = f2->GetParameter(0);
+				s = f2->GetParameter(1);
+				std::cout << "Goodnes: " << double(f2->GetChisquare()/f2->GetNDF()) << std::endl;
+				delete f2;
+			}
+			else if(s1 == 0 && f1 == 0){
+				s = s2; f = f2;
+			}else if (s2 == 0 && f2 ==0){						
+				s = s1; f = f1;
+			}else{
+				s = (s1+s2)/2.; f = (f1+f2)/2.;
+			}
 
-
+			std::cout << "lin fit one peak on the range " << x1 << "\t" << x2 << std::endl;
 		}
-		else{
+		
+		
+		else if (fPeakPos.size() == 2){	
+		
+				std::cout << "1" << std::endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));		
+				TF1* g1 = new TF1("l1","pol1",fRange.first,fPeakPos.at(0)-2*fRes->Eval(fPeakPos.at(0)));
+			
+				std::cout << "2" << std::endl;
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));		
+				TF1* g2 = new TF1("l2","pol1",fPeakPos.at(1)+2*fRes->Eval(fPeakPos.at(1)),fRange.second);
+				
+				std::cout << "3" << std::endl;				
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));		
+				TF1* g3 = new TF1("m3","gaus",fPeakPos.at(0)-2*fRes->Eval(fPeakPos.at(0)), fPeakPos.at(0)+2*fRes->Eval(fPeakPos.at(0)));
+				TF1* g4 = new TF1("m4","gaus",fPeakPos.at(1)-2*fRes->Eval(fPeakPos.at(1)), fPeakPos.at(1)+2*fRes->Eval(fPeakPos.at(1)));
+				
+				
+				std::cout << "4" << std::endl;
+				
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));		
+				// The total is the sum of the three, each has 3 parameters
+				TF1* total = new TF1("mstotal","pol1(0)+pol1(2)+gaus(4)+gaus(7)", fRange.first,fRange.second );  
+				std::this_thread::sleep_for(std::chrono::milliseconds(1000));		
+				
+				g1->SetParLimits(0, 0, maxbkg);
+				g2->SetParLimits(0, 0, maxbkg);
+				if (maxpeakheight[0]>1)	g3->SetParLimits(0, 0, maxpeakheight[0]);
+				g3->FixParameter(1, fPeakPos.at(0));				
+				g3->FixParameter(2, fRes->Eval(fPeakPos.at(0))/2.55);		
+				
+			 if (maxpeakheight[1]>1) g4->SetParLimits(0, 0, maxpeakheight[1]);
+				g4->FixParameter(1, fPeakPos.at(1));				
+				g4->FixParameter(2, fRes->Eval(fPeakPos.at(1))/2.55);		
+				
+				
+				fHist->Fit(g1,"R");
+				fHist->Fit(g2,"R+");
+				fHist->Fit(g3,"R+");
+				fHist->Fit(g4,"R+");
+				
+				 Double_t par[10];
+				// Get the parameters from the fit
+				g1->GetParameters(&par[0]);
+				g2->GetParameters(&par[2]);
+				g3->GetParameters(&par[4]);
+				g4->GetParameters(&par[7]);
+
+				// Use the parameters on the sum
+				total->SetParameters(par);
+				//g3->SetParLimits(0, 0, maxpeakheight[0]);
+				total->FixParameter(5, fPeakPos.at(0));				
+				total->FixParameter(6, fRes->Eval(fPeakPos.at(0))/2.55);		
+				
+				total->FixParameter(8, fPeakPos.at(1));				
+				total->FixParameter(9, fRes->Eval(fPeakPos.at(1))/2.55);		
+				fHist->Fit(total,"R+"); 
+				f=(par[0]+par[2])/2;
+				s = (par[1]+par[3])/2;
+				 return true;
+		}
+		 else{
 			double max_peak = *max_element(fPeakPos.begin(), fPeakPos.end());
 			int maxElIdx = std::max_element(fPeakPos.begin(),fPeakPos.end()) - fPeakPos.begin();
 			double min_peak = *min_element(fPeakPos.begin(), fPeakPos.end());
-			  int minElIdx = std::min_element(fPeakPos.begin(),fPeakPos.end()) - fPeakPos.begin();
+			int minElIdx = std::min_element(fPeakPos.begin(),fPeakPos.end()) - fPeakPos.begin();
 			std::cout<<"Max/min value: "<<max_peak << "\t"<< min_peak << std::endl;
-		std::cout << "idx max min el" << maxElIdx << "\t" << minElIdx << std::endl;	
+			std::cout << "idx max min el" << maxElIdx << "\t" << minElIdx << std::endl;	
 			
 			TF1 *fl1;// = new TF1();
 			TF1 *fl2;// = new TF1();
@@ -151,7 +419,56 @@ std::cout << "lin fit one peak on the range " << x1 << "\t" << x2 << std::endl;
 
 			}else std::cout << "2nd peak is out of range" << std::endl;
 			 
+			if (cndf1 ==0 && cndf2 == 0 && fPeakPos.size() == 3){
+			// bot peaks are too close to the bothers, zb: 3 peaks in the range
+				if (maxpeakheight[1] < 5*sqrt(maxbkg)){
+					std::cout << "prelim fit on whole fit range" << std::endl;
+					x1 =fPeakPos.at(1)-fwhm;
+					x2 =fPeakPos.at(1)+fwhm;
+					TF1 *f2 = new TF1("linfit", "[0]+[1]*x", x1, x2);
+					f2->SetParLimits(0, 0, maxbkg);
+					fHist->Fit("linfit", "FLR");
 
+					f= f2->GetParameter(0);
+					s = f2->GetParameter(1);
+					return true;
+				}else{
+
+					TF1* g1 = new TF1("l1","pol1",fPeakPos.at(0)+2*fRes->Eval(fPeakPos.at(1)),fPeakPos.at(1)-2*fRes->Eval(fPeakPos.at(1)));
+
+					TF1* g2 = new TF1("l2","pol1",fPeakPos.at(1)+2*fRes->Eval(fPeakPos.at(1)),fPeakPos.at(2)-2*fRes->Eval(fPeakPos.at(1)));
+
+					TF1* g3 = new TF1("m3","gaus",fPeakPos.at(1)-2*fRes->Eval(fPeakPos.at(0)), fPeakPos.at(1)+2*fRes->Eval(fPeakPos.at(0)));
+					// The total is the sum of the three, each has 3 parameters
+					TF1* total = new TF1("mstotal","pol1(0)+pol1(2)+gaus(4)", fRange.first,fRange.second );
+
+					g1->SetParLimits(0, 0, maxbkg);
+					g2->SetParLimits(0, 0, maxbkg);
+					g3->SetParLimits(0, 0, maxpeakheight[1]);
+					g3->FixParameter(1, fPeakPos.at(1));
+					g3->FixParameter(2, fRes->Eval(fPeakPos.at(1))/2.55);
+
+					fHist->Fit(g1,"R");
+					fHist->Fit(g2,"R+");
+					fHist->Fit(g3,"R+");
+
+					Double_t par[7];
+					// Get the parameters from the fit
+					g1->GetParameters(&par[0]);
+					g2->GetParameters(&par[2]);
+					g3->GetParameters(&par[4]);
+
+					// Use the parameters on the sum
+					total->SetParameters(par);
+					//g3->SetParLimits(0, 0, maxpeakheight[0]);
+					total->FixParameter(5, fPeakPos.at(0));
+					total->FixParameter(6, fRes->Eval(fPeakPos.at(0))/2.55);
+					fHist->Fit(total,"R+");
+					f=(par[0]+par[2])/2;
+					s = (par[1]+par[3])/2;
+					return true;
+				}
+}
 			 if (cndf1 > 2|| cndf1 < 0.5){
 				 
 				 if (cndf2 > 2|| cndf2 < 0.5){
@@ -193,13 +510,14 @@ s = 0; f = maxbkg;
 return true;
 	}
 	
-	
+	*/
 	
 	
     bool GammaLineFit::ResetFit(TString name, bool ifgammas)
     {
 		  //! create fit function
         if(fFitSet)  delete fFitFunction;
+        // Just move this line after you remove tiny dicks in the collection of peaks
         fFitFunction = new GammaFitFunction("fit",fNPeaks,fRange,fLinBkg);
 		
 		 
@@ -242,7 +560,8 @@ return true;
             for(int j=0; j<fNPeaks; j++) {
                 if(fabs(fFitHist->GetBinCenter(i)-fPeakPos.at(j))
                    < fRes->Eval(fPeakPos.at(j))) {
-                    maxPeakCounts.at(j) += fFitHist->GetBinContent(i)-maxBkg;
+			double add = fFitHist->GetBinContent(i)-maxBkg;
+                    maxPeakCounts.at(j) += (fFitHist->GetBinContent(i)-maxBkg);
                 }
             }
         }
@@ -252,8 +571,8 @@ return true;
         for(int i=0; i<fNPeaks; i++) {
               if( maxPeakCounts.at(i)<1)  maxPeakCounts.at(i) =1;
 
-		fFitFunction->SetParLimits(3*i+2, 0.0, maxPeakCounts.at(i));
-            std::cout << "max peak height " << maxPeakCounts.at(i) << "\t" << "max bkg " << maxBkg << std::endl;
+			fFitFunction->SetParLimits(3*i+2, 0.0, maxPeakCounts.at(i));
+            std::cout << "peak " << i << "\t"<< fPeakPos[i] << " max peak height " << maxPeakCounts.at(i) << "\t" << "max bkg " << maxBkg << std::endl;
         
         }
         //estimating slope and bckg par
@@ -278,16 +597,19 @@ return true;
         double f = 0.;
         
         if (!EstimateLinFit(f, s, maxPeakCounts, maxBkg)) return false;
+		 
 		slope = s;
 		double free_param = f;
-		
+		std::cout << "Slope: " << slope << std::endl;
+		std::cout << "free term: " << free_param << std::endl;
 		if (slope < 0)	{			
 			fFitFunction->SetParLimits(fPeakPos.size()*3+1, 1.5*slope, 0);
 		}
 		else {
 			fFitFunction->SetParLimits(fPeakPos.size()*3+1, 0., 1.5*slope);		
 		}
-		
+
+		//Can be a problem at higher enegries
 		if (free_param < 0)
 			free_param = maxBkg;	
 		fFitFunction->SetParLimits(fPeakPos.size()*3, 0.6*free_param, 1.4*free_param);
@@ -295,8 +617,6 @@ return true;
 		
         std::cout << "Slope: " << slope << std::endl;
 		std::cout << "free term: " << free_param << std::endl;
-		std::cout << "max_bin" << max_bin << std::endl;
-		std::cout << "min_bin" << min_bin << std::endl;
 		
         //! create histogram fitter
         if(fFitSet)  delete fHistFitter;
@@ -338,13 +658,13 @@ return true;
 		
 		std::cout << "paramters fixed to" << std::endl;
 		for(int i=0; i<(int) fPeakPos.size(); i++) {
-		    if(ifgammas){
+		    /*if(ifgammas){
                 std::cout << "mean" << i << "\t" << fPeakPos.at(i) << std::endl;
 				fHistFitter->GetParameter(Form("mean%d",i))->SetLimits(fPeakPos.at(i)-1,
                                                                        fPeakPos.at(i)+1);
                 std::cout <<  maxPeakCounts.at(i) << std::endl;
                 fFitFunction->SetParLimits(3*i+2, 0.0, maxPeakCounts.at(i));
-			}else
+			}else*/
 				fHistFitter->GetParameter(Form("mean%d",i))->Fix(fPeakPos.at(i));
 			if(fResolPrior){
 				//fHistFitter->GetParameter(Form("fwhm%d",i))->SetLimits(fRes->Eval(fPeakPos.at(i)) - 1,

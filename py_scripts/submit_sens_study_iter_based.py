@@ -60,14 +60,14 @@ def get_new_script(script, en, it):
 			line = line.replace("(\"enrCoax\")", "(\"enrBEGe\" \"enrCoax\")")
 			print(line)
 		elif line.count("/nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092"):
-			line="odir=\"/nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/sensitivity_improved_fit3/\"\nif [ ! -d ${odir} ]; then\n"
+			line="odir=\"/nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/sensitivity_improved_fit5/\"\nif [ ! -d ${odir} ]; then\n"
 			print(line)
 		elif line.count("gammacounts"):
 			line = line.replace("gammacounts", "peaksearch")
 			print(line)
 		elif line.count("en++));"):
 			if en < 1000 or en == 5000:
-				line = 'for ((en={}; en<{}; en++));'.format(en, en+400)
+				line = 'for ((en={}; en<{}; en++));'.format(en, en+4700)
 			else:
 				line = 'for ((en={}; en<{}; en++));'.format(en, en+1000)
 		f.write(line)
@@ -76,9 +76,8 @@ def get_new_script(script, en, it):
 	return new_script
 ##############################################################################################
 log_dir = "/nfs/gerda2/users/rizalinko/gamma-fitter/logs_newsens/"
-idx = analysed_pseudo.index(200173)
+idx = analysed_pseudo.index(90274)
 for it in analysed_pseudo[idx+1:]:
-	sleep(3000)
 	print("iteration {} {}".format(it, analysed_pseudo.index(it)))
 	file_name = "/nfs/gerda2/users/rizalinko/gerda-bkg-model/gerda-bkg-model/input/data/datafake-bkg-model-v1.0_{}.root".format(it)
         	
@@ -86,7 +85,9 @@ for it in analysed_pseudo[idx+1:]:
 		continue
 	le = np.arange(200, 1000, 400)
 	he = np.arange(1000, 6000, 1000)
-	energies = np.append(le, he)
+	#energies = np.append(le, he)
+	#energies = np.arange(list600)
+	energies=[640]
 	for en in energies:
 		script = '../shell_scripts/run_sens_study_iter_based_000.sh'
 
@@ -94,7 +95,7 @@ for it in analysed_pseudo[idx+1:]:
 		
 		log_time =  str(time.time())
 		command = "qsub -q gerda -V -d {} -e localhost:erlog_{}.txt   -o localhost:log_{}_{}.txt -N {}_{} ".format\
-			(log_dir, log_time, log_time, en, 'lfit', it)
+			(log_dir, log_time, log_time, en, 'toy_sim', it)
 		inp_args = " -v inp_bin='{}',inp_bat='{}',inp_log='{}',inp_iter='{}',inp_pseudo_path='{}',inp_woi='{}' {}".format\
 			(str(ibinning), bat_precision, log_time, it, pseudo_path, woi, script)
 
@@ -105,7 +106,7 @@ for it in analysed_pseudo[idx+1:]:
 		os.system(launch_command)
 		submitted_j +=1
 	if submitted_j>50:
-		sleep(1000)
+		sleep(500)
 
 
 

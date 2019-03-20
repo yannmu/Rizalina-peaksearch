@@ -1,0 +1,114 @@
+****************************************************
+The program to estimate the gamma contamination rate
+Please provide all the required input
+****************************************************
+analysing line: superwimp_850
+energy: 850
+keylist: /nfs/gerda5/gerda-data/blind/v04.00/meta/data-sets/phy/run0053-run0092-phy-analysis.txt
+dataset: enrBEGe
+binning: 1
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+outdir: /nfs/gerda2/users/rizalinko/gamma-analysis/$/enrBEGe/binning_1/850
+BAT precisionmed
+woi 12
+summary file/nfs/gerda2/PhaseIIsummary/PhaseII53-92_blind.root
+gammas are listed in /nfs/gerda2/users/rizalinko/gamma-analysis//g_lines_strong.txt
+res curve for priors: /nfs/gerda2/Calibration_PhaseII/SuperCalibrations/mithists/PhII/ZAC/PhIIZACgammalines-supercal.root
+converting into double 511
+converting into double  1588.2 794.95
+converting into double 726.863
+converting into double  964.8
+converting into double 968.97
+converting into double 911.2
+converting into double 338.32
+converting into double 510.77
+converting into double 583.2
+converting into double 860.6
+converting into double 2614.53 
+converting into double 241
+converting into double 238.6 
+converting into double727
+converting into double 1001.03
+converting into double  1737.73
+converting into double 1867.68
+converting into double   1874.85
+converting into double  1911.17
+converting into double 1937.01
+converting into double 53.20
+converting into double 120.9
+converting into double 351.932
+converting into double 295.224
+converting into double 241.997
+converting into double 609.312
+converting into double 768.36
+converting into double 934.1
+converting into double 1120.3
+converting into double 1238.1
+converting into double 1377.7
+converting into double 1408
+converting into double 1729.6
+converting into double 1764.5
+converting into double 1847.4
+converting into double 2118.6
+converting into double 2204.21
+converting into double 2293.4
+converting into double 2447.9
+converting into double 3053.9
+converting into double 46.539  
+converting into double 803.1
+converting into double 1460
+converting into double 1525
+converting into double   1173.2
+converting into double  1332.5
+converting into double  1491
+converting into double  1550
+converting into double 514
+pushing spectraenrBEGe
+850 is close to 860.6
+woi14
+superwimp_850  the line is registered
+nbins in hist 8000
+fFitter->SetRes(resCurve);
+fFitter->SetRange(line.second.range);
+ +------------------------------------------------------+
+ |                                                      |
+ | BAT version 0.9.4.1                                  |
+ | Copyright (C) 2007-2014, the BAT core developer team |
+ | All rights reserved.                                 |
+ |                                                      |
+ | For the licensing terms see doc/COPYING              |
+ | For documentation see http://mpp.mpg.de/bat          |
+ |                                                      |
+ +------------------------------------------------------+
+
+Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-analysis/$/enrBEGe/binning_1/850/enrBEGe-superwimp_850.txt
+BCAux::SetStyle();
+creating fit function with parameters [ mean0 fwhm0 intnsty0 mean1 fwhm1 intnsty1 bkgrnd slpe ]
+max peak height 323.923	max bkg 141.808
+max peak height 461.154	max bkg 141.808
+linear fit
+making a linear fit; printing out the params in /nfs/gerda2/users/rizalinko/gamma-analysis/$/enrBEGe/binning_1/850/enrBEGe-superwimp_850
+Max/min value: 860.6	850
+*** ******************* 1st fit **********************
+ FCN=3.1668 FROM MIGRAD    STATUS=CONVERGED     125 CALLS         126 TOTAL
+                     EDM=1.42488e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.89186e+03   2.36970e+02   4.31672e-03  -1.00485e-07
+   2  p1          -2.13639e+00   2.81889e-01   5.13499e-06  -4.21345e-05
+                               ERR DEF= 0.5
+Goodnes 1st lin7	0.929016
+2nd peak is out of range
+Goodness is bad for for the 2nd func
+Slope: -2.13639
+free term: 1891.86
+max_bin0
+min_bin1e+08
+paramters fixed to
+fwhm0	2.43684
+fwhm1	2.44201
+ResetFit(name);
+marginalisation
+Summary : Marginalize using Metropolis
+Summary : Pre-run Metropolis MCMC...
+Summary :  --> Perform MCMC pre-run with 5 chains, each with maximum 100000 iterations

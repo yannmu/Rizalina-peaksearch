@@ -42,7 +42,7 @@ namespace std {
         };
 
         //! Constructor
-        GammaLineAnalysis( std::string lar, std::string logDir = ".",std::string gfile = "", std::string sumfile = "", double b_w=1., 
+        GammaLineAnalysis(std::string ds , std::string lar, std::string logDir = ".",std::string gfile = "", std::string sumfile = "", double b_w=1., 
                            BCEngineMCMC::Precision precision = BCEngineMCMC::kLow );
 
         //! Destructor
@@ -70,22 +70,21 @@ namespace std {
             fSpectra->insert({name,{spectrum,resolution}}); }
         void RegisterLine(TString name, vector<double> peakPos, pair<double,double> range)
         { fLines->insert({name,{peakPos,range}});         };
-        
-        void RegisterStandardLines(double woi);
-        void PerformFits(TF1* resCurve, bool ifresolpr = true, bool ifgammas = false );
+        void RegisterStandardLines(double woi,  TF1* resCurve);
+        void PerformFits(TF1* resCurve, bool ifresolpr = true, bool ifgammas = false, bool iftest = false);
         void RegisterPseudoData(int iter, string path, double energy){
             m_pseudo = true;
             m_pseudo_iter = iter;
             m_pseudo_path = path;
             m_pseudo_energy = energy;
         }
-        
+	        
 	std::vector<double> GetCloseLinesToLine(double energy,  double & woi, double fwhm);
 
     private:
 		std::vector<std::string> fisotopes;
 		std::vector<std::vector<double>> fglines;
-
+TH1D* GetHistFromTree(TFile *f);
         map<TString,AnalysisSpectrum>* fSpectra;
         map<TString,GammaRegion>*      fLines;
         GammaLineFit*                  fFitter;

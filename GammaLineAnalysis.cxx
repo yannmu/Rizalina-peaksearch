@@ -8,9 +8,9 @@
 
 namespace std {
 
-    GammaLineAnalysis::GammaLineAnalysis( string larmode, string log_ds, string gfile, string sumfile, double b_w,
+    GammaLineAnalysis::GammaLineAnalysis(std::string ds ,string larmode, string log_ds, string gfile, string sumfile, double b_w,
                                           BCEngineMCMC::Precision precision ) :
-            fLar(larmode), fLogDir(log_ds), fPrecision(precision), fDS(log_ds), fgfile(gfile), fSumFile(sumfile), fSpectraBinning(b_w)
+            fLar(larmode), fLogDir(log_ds), fPrecision(precision), fDS(ds), fgfile(gfile), fSumFile(sumfile), fSpectraBinning(b_w)
     {
 
         fSpectra = new map<TString,AnalysisSpectrum>;
@@ -26,11 +26,57 @@ namespace std {
         delete fFitter;
     }
 
-    void GammaLineAnalysis::PerformFits(TF1* resCurve, bool ifresolprior, bool ifgammas )
+
+TH1D*  GammaLineAnalysis::GetHistFromTree(TFile *f){
+      TH1D*  h = new TH1D("h", "h", 8000/fSpectraBinning, 0, 8000);
+        TTree *tier4 = (TTree*)f->Get("tier4");
+        std::vector<double>* energy = new std::vector<double>();
+        std::vector<int>* dsID = new std::vector<int>();
+        int  isMV ;
+        int  mult;
+        int  tp ;
+        int  bl ;
+        int  larvetod ;
+	std::cout << "creating hist for the " << fDS << std::endl;
+	tier4->SetBranchAddress( "energy", &energy );
+        tier4->SetBranchAddress( "datasetID", &dsID );
+        tier4->SetBranchAddress( "isMuVetoed", &isMV );
+        tier4->SetBranchAddress( "multiplicity", &mult );
+        tier4->SetBranchAddress( "isTP", &tp );
+        tier4->SetBranchAddress( "isBL", &bl );
+        if(fLar.find("LAr") != std::string::npos){
+            std::cout << fLar << std::endl;
+            tier4->SetBranchAddress( "isLArVetoed", &larvetod );
+        }
+        for( int i=0; i<tier4->GetEntries(); i++ ){
+            tier4->GetEntry(i);
+
+            int idx_en = 0;
+            if(mult>1 || tp == 1|| bl ==1 || isMV ==1 ) continue;
+            if(fLar.find("LArAC") != std::string::npos and larvetod ==1) continue;
+            else if (fLar.find("LArC") != std::string::npos and larvetod ==0)  continue;
+            for (int j = 0; j<energy->size(); j++){
+                if (energy->at(j)!=0) idx_en = j;
+            }
+            if(fDS.find("Coax") != std::string::npos && dsID->at(idx_en) == 5){
+                h->Fill(energy->at(idx_en));
+            }
+            else if (fDS.find("BEGe") !=std::string::npos and dsID->at(idx_en) == 0){
+                h->Fill(energy->at(idx_en));
+            }
+            else if(fDS.find("BEGe") == std::string::npos &&fDS.find("Coax") == std::string::npos  && dsID->at(idx_en) ==3){
+                h->Fill(energy->at(idx_en));
+            }
+        }
+    return h;
+    }
+    void GammaLineAnalysis::PerformFits(TF1* resCurve, bool ifresolprior, bool ifgammas, bool iftest )
     {
+
         fFitter->SetPrecision(fPrecision);
         if(!ifresolprior)
             fFitter->SwitchOffPriors();
+		TH1D *h  = new TH1D();
 
 		if(m_pseudo){
 
@@ -39,8 +85,6 @@ namespace std {
 
 			TFile *f = new TFile(path);
 			char hname[100];
-
-			TH1D *h  = new TH1D();
 			//sprintf(hname, "energy_%0.f_keV", m_pseudo_energy);
 			if (fDS.find("Coax") != std::string::npos)
 				h = (TH1D*)f->Get("M1_enrCoax");
@@ -50,18 +94,13 @@ namespace std {
 				h = (TH1D*)f->Get("M1_natCoax");
 			//fFitter->SetHist((TH1D*) spectr.second.spectrum);
 			fFitter->SetHist(h);
-
-			//delete f;
-			//delete h;
-
-
-		}
+        }
 		else
 		{
-			TH1D *h = new TH1D("h", "h", 8000/fSpectraBinning, 0, 8000);
 			TFile *f = new TFile(fSumFile.c_str());
-			if(! ifgammas)
+    		if(! ifgammas)// or fSpectraBinning == 1)
 			{
+				h = new TH1D("h", "h", 8000/fSpectraBinning, 0, 8000);
 				if (fDS.find("Coax") != std::string::npos)
 					h = (TH1D*)f->Get("hRaw5");
 				else if (fDS.find("BEGe") !=std::string::npos)
@@ -69,110 +108,63 @@ namespace std {
 				else
 					h = (TH1D*)f->Get("hRaw5");
 			}
-			if(ifgammas){
-//				std::cout << "taking hist from tree" << std::endl;
-				TTree *tier4 = (TTree*)f->Get("tier4");
-				std::vector<double>* energy = new std::vector<double>();
-				std::vector<int>* dsID = new std::vector<int>();
-				int  isMV ;
-				int  mult;
-				int  tp ;
-				int  bl ;
-				int  larvetod ;
+			else if(ifgammas && !iftest){
+                h = GetHistFromTree(f);
+				TH1D* hraw5 = (TH1D*)f->Get("hRaw0");
 
-				tier4->SetBranchAddress( "energy", &energy );
-				tier4->SetBranchAddress( "datasetID", &dsID );
-				tier4->SetBranchAddress( "isMuVetoed", &isMV );
-				tier4->SetBranchAddress( "multiplicity", &mult );
-				tier4->SetBranchAddress( "isTP", &tp );
-				tier4->SetBranchAddress( "isBL", &bl );
-				if(fLar.find("LAr") != std::string::npos){
-					std::cout << fLar << std::endl;
-					tier4->SetBranchAddress( "isLArVetoed", &larvetod );
-				}
-
-
-				for( int i=0; i<tier4->GetEntries(); i++ ){
-					tier4->GetEntry(i);
-					int idx_en = 0;
-					if(mult>1 || tp == 1|| bl ==1 || isMV ==1 ) continue;
-
-					if(fLar.find("LArAC") != std::string::npos and larvetod ==1) continue;
-					else if (fLar.find("LArC") != std::string::npos and larvetod ==0)  continue;
-
-					for (int j = 0; j<energy->size(); j++){
-						if (energy->at(j)!=0) idx_en = j;
-					}
-
-
-					if(fDS.find("Coax") != std::string::npos && dsID->at(idx_en) == 5){
-						h->Fill(energy->at(idx_en));
-					}
-					else if (fDS.find("BEGe") !=std::string::npos and dsID->at(idx_en) == 0){
-						h->Fill(energy->at(idx_en));
-					}
-					else if(fDS.find("BEGe") == std::string::npos &&fDS.find("Coax") == std::string::npos  && dsID->at(idx_en) ==3){
-						h->Fill(energy->at(idx_en));
-					}
-				}
-				//if(h->GetEntries )
-				/*
-                if (fDS.find("Coax") != std::string::npos)
-                    tier4->Draw("energy>>h", "datasetID == 5 && !isBL && !isMuVetoed && multiplicity ==1 && !isTP");
-                else if (fDS.find("BEGe") !=std::string::npos)
-                    tier4->Draw("energy>>h", "datasetID == 0 && !isBL && !isMuVetoed && multiplicity ==1 && !isTP");
-                else
-                    tier4->Draw("energy>>h", "datasetID == 3 && !isBL && !isMuVetoed && multiplicity ==1 && !isTP");*/
-			}
-			//for(int i=50; i<150; i++) std::cout <<  h->GetBinCenter(i) << "\t" << h->GetBinContent(i) << "\t";
-			TCanvas * c = new TCanvas();
-			h->Draw();
-			c->SaveAs("histfromtree.root");
-			fFitter->SetHist(h);
-//			std::cout << "nbins in hist " << h->GetNbinsX() << std::endl;
-			//delete f;
-			//delete h;
+				hraw5->SetLineColor(kRed);
+				TFile *ftest = new TFile("test_hist_b1.root", "recreate");
+				h->Write();
+				hraw5->Write();
+				ftest->Close();
+			}else if(iftest){
+				std::cout << "TEST" << std::endl;
+				//TH1D *h = new TH1D("h", "h", 8000/fSpectraBinning, 0, 8000);
+				char hitsfilename[500];
+				sprintf(hitsfilename,"/nfs/gerda2/users/rizalinko/gamma-analysis/%s_hist_b03.root", fDS.c_str() );
+				TFile *f = new TFile(hitsfilename);
+				h= (TH1D*)f->Get("h");
+				TCanvas *c = new TCanvas();
+				h->Draw();
+				c->SaveAs("tests_hist.png");
+				
+            }
 		}
-        for(auto& line : *(fLines)) {     //loop over lines
-			
+		fFitter->SetHist(h);
+
+		for(auto& line : *(fLines)) {     //loop over lines
             for(auto& spectr : *(fSpectra)) { //loop over spectra
 
-		bool igl = false;				
-				
-                fFitter->SetRes(resCurve);
-//                std:;cout << "fFitter->SetRes(resCurve);" << std::endl;
-		for(int i =0;i<fglines.size(); i++){
-			for(int j = 0; j<fglines[i].size(); j++){
-				for (int k =0; k<line.second.peakPos.size(); k++)
-					if(abs(line.second.peakPos[k] - fglines[i][j])<1) igl = true; 
+				bool igl = false;				
+
+				fFitter->SetRes(resCurve);
+				// std:;cout << "fFitter->SetRes(resCurve);" << std::endl;
+			for(int i =0;i<fglines.size(); i++){
+				for(int j = 0; j<fglines[i].size(); j++){
+					for (int k =0; k<line.second.peakPos.size(); k++)
+						if(abs(line.second.peakPos[k] - fglines[i][j])<1) igl = true; 
+				}
 			}
-		}
-//		std::cout<<"is ga line" << igl << std::endl;
-                fFitter->SetPeakPos(line.second.peakPos, igl);
-                fFitter->SetRange(line.second.range);
-                
-  //              std::cout << "fFitter->SetRange(line.second.range);" << std::endl;
-                /*
-                if( std::get<0>(line.second.range) < 400){
-			         fFitter->SetLinBkg(true);
-				}*/
-                 
-                if(fFitter->Fit(Form("%s/%s-%s",fLogDir.Data(), spectr.first.Data(),line.first.Data()), ifgammas)){
-					//std::cout << "fFitter->Fit();" << std::endl;
-									  
-									  
+			//std::cout<<"is ga line" << igl << std::endl;
+			fFitter->SetPeakPos(line.second.peakPos, igl);
+			fFitter->SetRange(line.second.range);
+     
+
+			if(fFitter->Fit(Form("%s/%s-%s",fLogDir.Data(), spectr.first.Data(),line.first.Data()), ifgammas)){
+			//std::cout << "fFitter->Fit();" << std::endl;				  
 							  
-					fFitter->WriteToCommonLog(Form("%s-%s",
-												   spectr.first.Data(),line.first.Data()),
-											  Form("%s/gamma.log",fLogDir.Data()),
-											  spectr.second.spectrum->GetExposure(), ifgammas);
+					  
+			fFitter->WriteToCommonLog(Form("%s-%s",
+										   spectr.first.Data(),line.first.Data()),
+									  Form("%s/gamma.log",fLogDir.Data()),
+									  spectr.second.spectrum->GetExposure(), ifgammas);
 				}
 						
             }
        }
     }	
 
-    void GammaLineAnalysis::RegisterStandardLines(double woi)
+    void GammaLineAnalysis::RegisterStandardLines(double woi, TF1* resCurve)
     {
 		
 		for(int i=0; i < fisotopes.size(); i++){
@@ -183,8 +175,8 @@ namespace std {
 				char acname[500];
 				sprintf(acname, "%s_%d",fisotopes[i].c_str(), int(fglines[i][j]) );
 				//std::cout << acname << "\t";
-				std::cout << "PUT THE REAL FWHM HERE" << std::endl;
-				vector<double> peaks = GetCloseLinesToLine(fglines[i][j], woi_current, 3);
+				std::cout << " REAL FWHM HERE" << resCurve->Eval(fglines[i][j]) << std::endl;
+				vector<double> peaks = GetCloseLinesToLine(fglines[i][j], woi_current, resCurve->Eval(fglines[i][j]));
 				//gg->RegisterLine(line, peaks,{energy - woi,energy+woi});
 				//std::cout <<  "RegisterLine(" << acname <<",{";
 				for(int p=0; p<peaks.size(); p++)
@@ -270,7 +262,7 @@ fwhm = ceil(fwhm);
 				}
 				// from the left side
 				//right outside of the window
-				else if(energy - woi - fglines[is][jen] < 2*fwhm && energy - woi - fglines[is][jen] >0) {
+				else if(energy - woi - fglines[is][jen] <= 2*fwhm && energy - woi - fglines[is][jen] >=0) {
 
 				      std::cout << "adjsuting window; case 3" << std::endl;
                               		

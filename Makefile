@@ -102,24 +102,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named peaksearch
+# Target rules for targets named gtest
 
 # Build rule for target.
-peaksearch: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 peaksearch
-.PHONY : peaksearch
+gtest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
 
 # fast build rule for target.
-peaksearch/fast:
-	$(MAKE) -f CMakeFiles/peaksearch.dir/build.make CMakeFiles/peaksearch.dir/build
-.PHONY : peaksearch/fast
+gtest/fast:
+	$(MAKE) -f CMakeFiles/gtest.dir/build.make CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
 
 GammaCountAnalysis.o: GammaCountAnalysis.cxx.o
 .PHONY : GammaCountAnalysis.o
 
 # target to build an object file
 GammaCountAnalysis.cxx.o:
-	$(MAKE) -f CMakeFiles/peaksearch.dir/build.make CMakeFiles/peaksearch.dir/GammaCountAnalysis.cxx.o
+	$(MAKE) -f CMakeFiles/gtest.dir/build.make CMakeFiles/gtest.dir/GammaCountAnalysis.cxx.o
 .PHONY : GammaCountAnalysis.cxx.o
 
 GammaCountAnalysis.i: GammaCountAnalysis.cxx.i
@@ -127,7 +127,7 @@ GammaCountAnalysis.i: GammaCountAnalysis.cxx.i
 
 # target to preprocess a source file
 GammaCountAnalysis.cxx.i:
-	$(MAKE) -f CMakeFiles/peaksearch.dir/build.make CMakeFiles/peaksearch.dir/GammaCountAnalysis.cxx.i
+	$(MAKE) -f CMakeFiles/gtest.dir/build.make CMakeFiles/gtest.dir/GammaCountAnalysis.cxx.i
 .PHONY : GammaCountAnalysis.cxx.i
 
 GammaCountAnalysis.s: GammaCountAnalysis.cxx.s
@@ -135,7 +135,7 @@ GammaCountAnalysis.s: GammaCountAnalysis.cxx.s
 
 # target to generate assembly for a file
 GammaCountAnalysis.cxx.s:
-	$(MAKE) -f CMakeFiles/peaksearch.dir/build.make CMakeFiles/peaksearch.dir/GammaCountAnalysis.cxx.s
+	$(MAKE) -f CMakeFiles/gtest.dir/build.make CMakeFiles/gtest.dir/GammaCountAnalysis.cxx.s
 .PHONY : GammaCountAnalysis.cxx.s
 
 # Help Target
@@ -145,7 +145,7 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... peaksearch"
+	@echo "... gtest"
 	@echo "... rebuild_cache"
 	@echo "... GammaCountAnalysis.o"
 	@echo "... GammaCountAnalysis.i"

@@ -116,7 +116,7 @@ CMAKE_OBJCOPY:FILEPATH=/usr/bin/objcopy
 CMAKE_OBJDUMP:FILEPATH=/usr/bin/objdump
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=peaksearch
+CMAKE_PROJECT_NAME:STATIC=gtest
 
 //Path to a program.
 CMAKE_RANLIB:FILEPATH=/usr/bin/ranlib
@@ -217,6 +217,24 @@ gammasearch_BINARY_DIR:STATIC=/nfs/gerda2/users/rizalinko/gamma-analysis
 
 //Value Computed by CMake
 gammasearch_SOURCE_DIR:STATIC=/nfs/gerda2/users/rizalinko/gamma-analysis
+
+//Value Computed by CMake
+gtest_BINARY_DIR:STATIC=/nfs/gerda2/users/rizalinko/gamma-analysis
+
+//Value Computed by CMake
+gtest_SOURCE_DIR:STATIC=/nfs/gerda2/users/rizalinko/gamma-analysis
+
+//Value Computed by CMake
+peaksearch2_BINARY_DIR:STATIC=/nfs/gerda2/users/rizalinko/gamma-analysis
+
+//Value Computed by CMake
+peaksearch2_SOURCE_DIR:STATIC=/nfs/gerda2/users/rizalinko/gamma-analysis
+
+//Value Computed by CMake
+peaksearch3_BINARY_DIR:STATIC=/nfs/gerda2/users/rizalinko/gamma-analysis
+
+//Value Computed by CMake
+peaksearch3_SOURCE_DIR:STATIC=/nfs/gerda2/users/rizalinko/gamma-analysis
 
 //Value Computed by CMake
 peaksearch_BINARY_DIR:STATIC=/nfs/gerda2/users/rizalinko/gamma-analysis

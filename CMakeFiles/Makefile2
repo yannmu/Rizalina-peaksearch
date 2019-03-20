@@ -56,38 +56,38 @@ CMAKE_SOURCE_DIR = /nfs/gerda2/users/rizalinko/gamma-analysis
 CMAKE_BINARY_DIR = /nfs/gerda2/users/rizalinko/gamma-analysis
 
 #=============================================================================
-# Target rules for target CMakeFiles/peaksearch.dir
+# Target rules for target CMakeFiles/gtest.dir
 
 # All Build rule for target.
-CMakeFiles/peaksearch.dir/all:
-	$(MAKE) -f CMakeFiles/peaksearch.dir/build.make CMakeFiles/peaksearch.dir/depend
-	$(MAKE) -f CMakeFiles/peaksearch.dir/build.make CMakeFiles/peaksearch.dir/build
+CMakeFiles/gtest.dir/all:
+	$(MAKE) -f CMakeFiles/gtest.dir/build.make CMakeFiles/gtest.dir/depend
+	$(MAKE) -f CMakeFiles/gtest.dir/build.make CMakeFiles/gtest.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /nfs/gerda2/users/rizalinko/gamma-analysis/CMakeFiles  1
-	@echo "Built target peaksearch"
-.PHONY : CMakeFiles/peaksearch.dir/all
+	@echo "Built target gtest"
+.PHONY : CMakeFiles/gtest.dir/all
 
 # Include target in all.
-all: CMakeFiles/peaksearch.dir/all
+all: CMakeFiles/gtest.dir/all
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/peaksearch.dir/rule: cmake_check_build_system
+CMakeFiles/gtest.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/gerda2/users/rizalinko/gamma-analysis/CMakeFiles 1
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/peaksearch.dir/all
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/gtest.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /nfs/gerda2/users/rizalinko/gamma-analysis/CMakeFiles 0
-.PHONY : CMakeFiles/peaksearch.dir/rule
+.PHONY : CMakeFiles/gtest.dir/rule
 
 # Convenience name for target.
-peaksearch: CMakeFiles/peaksearch.dir/rule
-.PHONY : peaksearch
+gtest: CMakeFiles/gtest.dir/rule
+.PHONY : gtest
 
 # clean rule for target.
-CMakeFiles/peaksearch.dir/clean:
-	$(MAKE) -f CMakeFiles/peaksearch.dir/build.make CMakeFiles/peaksearch.dir/clean
-.PHONY : CMakeFiles/peaksearch.dir/clean
+CMakeFiles/gtest.dir/clean:
+	$(MAKE) -f CMakeFiles/gtest.dir/build.make CMakeFiles/gtest.dir/clean
+.PHONY : CMakeFiles/gtest.dir/clean
 
 # clean rule for target.
-clean: CMakeFiles/peaksearch.dir/clean
+clean: CMakeFiles/gtest.dir/clean
 .PHONY : clean
 
 #=============================================================================

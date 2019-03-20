@@ -1,1 +1,0 @@
-Summary : Opening logfile /nfs/gerda2/users/rizalinko/gamma-fitter/run0053-run0092/gamma_analysis_testqsub/enrBEGe/binning_0.3/enrBEGe-Ac228_338.txt
