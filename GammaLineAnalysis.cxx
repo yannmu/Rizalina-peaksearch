@@ -8,7 +8,7 @@
 
 namespace std {
 
-    GammaLineAnalysis::GammaLineAnalysis(std::string ds ,string larmode, string log_ds, string gfile, string sumfile, double b_w,
+    GammaLineAnalysis::GammaLineAnalysis( std::string ds ,string larmode, string log_ds, string gfile, string sumfile, double b_w,
                                           BCEngineMCMC::Precision precision ) :
             fLar(larmode), fLogDir(log_ds), fPrecision(precision), fDS(ds), fgfile(gfile), fSumFile(sumfile), fSpectraBinning(b_w)
     {
@@ -48,6 +48,8 @@ TH1D*  GammaLineAnalysis::GetHistFromTree(TFile *f){
             std::cout << fLar << std::endl;
             tier4->SetBranchAddress( "isLArVetoed", &larvetod );
         }
+	int coaxid = 5;
+	if(fPhase) coaxid = 1;
         for( int i=0; i<tier4->GetEntries(); i++ ){
             tier4->GetEntry(i);
 
@@ -58,7 +60,7 @@ TH1D*  GammaLineAnalysis::GetHistFromTree(TFile *f){
             for (int j = 0; j<energy->size(); j++){
                 if (energy->at(j)!=0) idx_en = j;
             }
-            if(fDS.find("Coax") != std::string::npos && dsID->at(idx_en) == 5){
+            if(fDS.find("Coax") != std::string::npos && dsID->at(idx_en) == coaxid){
                 h->Fill(energy->at(idx_en));
             }
             else if (fDS.find("BEGe") !=std::string::npos and dsID->at(idx_en) == 0){
@@ -98,7 +100,9 @@ TH1D*  GammaLineAnalysis::GetHistFromTree(TFile *f){
 		else
 		{
 			TFile *f = new TFile(fSumFile.c_str());
-    		if(! ifgammas)// or fSpectraBinning == 1)
+			if(fSumFile.find("PhaseIIa")!=  std::string::npos|| fSumFile.find("PhaseIIb")!=  std::string::npos)
+				fPhase = true;
+    			if(! ifgammas)// or fSpectraBinning == 1)
 			{
 				h = new TH1D("h", "h", 8000/fSpectraBinning, 0, 8000);
 				if (fDS.find("Coax") != std::string::npos)
@@ -254,10 +258,18 @@ fwhm = ceil(fwhm);
 					woi-=add_size;
 				}
 				// 2 - right before the fit window
-				else if (abs(fglines[is][jen] - energy - woi) <= 2*fwhm && fglines[is][jen] < energy + woi){
-					std::cout << "adjsuting window; case 2" << std::endl;
-                                       
-					peaks_pos.push_back(fglines[is][jen]);
+				else if (abs(fglines[is][jen] - energy - woi) <= 2*fwhm && fglines[is][jen] < energy + woi || fglines[is][jen] - (energy -woi) < 2* fwhm && fglines[is][jen] - (energy -woi) >0 ){
+					std::cout << "adjsuting window; case 2 and 4" << std::endl;
+ std::vector<double>::iterator it = std::find(peaks_pos.begin(), peaks_pos.end(), fglines[is][jen]);
+                                        if (it == peaks_pos.end()){
+                                                bool add = true;
+                                                for(int p = 0; p<peaks_pos.size(); p++){
+                                                        if(abs(fglines[is][jen] - peaks_pos[p]) < 1)
+                                                                add =false;
+                                                }
+                                                if(add) peaks_pos.push_back(fglines[is][jen]);
+                                        }
+                                     
 					woi+=add_size;
 				}
 				// from the left side
@@ -269,14 +281,14 @@ fwhm = ceil(fwhm);
 					woi-=add_size;
 				}
 
-				// right before the fit window range
+/*				// right before the fit window range
 				else if(fglines[is][jen] - (energy -woi) < 2* fwhm && fglines[is][jen] - (energy -woi) >0 ) {
 					//std::cout << "woi was changed" << std::endl;
 				      std::cout << "adjsuting window; case 4" << std::endl;
                                        
 					peaks_pos.push_back(fglines[is][jen]);
 					woi+=add_size;
-				}
+				}*/
 		}
 	}
 	std::cout << "woi" << woi << std::endl;

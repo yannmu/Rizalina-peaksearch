@@ -91,7 +91,8 @@ TH1D* GetHistFromTree(TFile *f);
         BCEngineMCMC::Precision        fPrecision;
         TString                        fLogDir;
         std::string                     fDS;
-
+	
+	bool fPhase = false;
         bool m_pseudo = false;
         double m_pseudo_energy;
         int m_pseudo_iter;
