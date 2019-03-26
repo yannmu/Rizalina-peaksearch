@@ -138,13 +138,13 @@ class GammaLineFit
       vector<TF1*>             fPeakPriors;
       double                   kFWHMRange = /*+-*/1;
       vector<TF1*>             fResPriors;
-	bool EstimateLinFit(double &s, double &f, std::vector<double> h, double b);
+	bool EstimateLinFit(double &s, double &f, std::vector<double> h, std::vector<double>, double b);
       TCanvas*                 fCanvas2;
 	bool fResolPrior = true;	
-bool FitTreePeak(double x1, double x2, double &f, double &s, std::vector<double> maxpeakheight, std::vector<double> peakpos, double maxbkg);
-bool FitTwoPeak(double x1, double x2, double &f, double &s, std::vector<double> maxpeakheight, std::vector<double> peakpos, double maxbkg);
+bool FitTreePeak(double x1, double x2, double &f, double &s, std::vector<double> maxpeakheight, std::vector<double> peakpos, std::vector<double>, double maxbkg);
+bool FitTwoPeak(double x1, double x2, double &f, double &s, std::vector<double> maxpeakheight, std::vector<double> peakpos, std::vector<double>, double maxbkg);
 bool FitTwoGauss(double x1, double x2, double &f, double &s, std::vector<double> maxpeakheight, std::vector<double> peakpos, double maxbkg);
-bool FitOnePeak(double x1, double x2, double &f, double &s, double maxpeakheight, double peakpos, double maxbkg);
+bool FitOnePeak(double x1, double x2, double &f, double &s, double maxpeakheight, double peakpos, double ,double maxbkg);
 bool FitGauss(double x1, double x2, double &f, double &s, double maxpeakheight, double peakpos, double maxbkg) ;
 bool FitLinear(double x1, double x2, double &f, double &s, double maxbkg) ;
 	
