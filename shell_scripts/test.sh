@@ -35,7 +35,7 @@ dsets=("enrBEGe")
 #for i in ${dsets[@]};
 #do
 ds="enrBEGe"
-odir="/disk/data1/atp/rizalina/superwimp/postdoctest"
+odir="/disk/data1/atp/rizalina/superwimp/test_superwimp_sw"
 if [ ! -d ${odir} ]; then
     mkdir -m g=wr ${odir}
 fi
