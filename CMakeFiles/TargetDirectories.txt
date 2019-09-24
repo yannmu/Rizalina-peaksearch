@@ -1,0 +1,3 @@
+/disk/data1/atp/rizalina/superwimp_sw/CMakeFiles/rebuild_cache.dir
+/disk/data1/atp/rizalina/superwimp_sw/CMakeFiles/peaksearch.dir
+/disk/data1/atp/rizalina/superwimp_sw/CMakeFiles/edit_cache.dir
